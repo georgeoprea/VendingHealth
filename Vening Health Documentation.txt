@@ -1,0 +1,9 @@
+Vening Health Documentation
+
+Parts used:
+- Raspberry PI 3
+- Arduino UNO
+- RFID Reader
+- Sonar sensors
+- DC Motors
+- Push Buttons
