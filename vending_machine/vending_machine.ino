@@ -33,17 +33,17 @@ MFRC522 nfc(SDAPIN, RESETPIN);
 void vend(const int echo, const int trig, const int motor){
   long duration;
   int cm = 8;
-    
+
   while(cm > 4){
-    
+
     digitalWrite(R_TRIG_PIN, LOW);
     delayMicroseconds(2);
     digitalWrite(R_TRIG_PIN, HIGH);
-    
+
     delayMicroseconds(10);
 
     duration = pulseIn(R_ECHO_PIN, HIGH);
-    
+
     cm = duration * 0.034 / 2;
     Serial.print(cm);
     Serial.println(" cm");
@@ -53,19 +53,19 @@ void vend(const int echo, const int trig, const int motor){
   stop_motors();
 }
 
-void stop_motors(){
+void stop_all_motors(){
   analogWrite(L_MOTOR, 0);
   analogWrite(R_MOTOR, 0);
 }
 
-void start_motor(int motor){
+void start_motor(int motor){		//parameter is pin number of motor
   analogWrite(motor, 130);
 }
 
 void setup() {
   SPI.begin();
   Serial.begin(9600);
-  
+
   //Serial.print("Looking for RFID Reader");
   nfc.begin();
   byte version = nfc.getFirmwareVersion();
@@ -86,10 +86,10 @@ void setup() {
 
   pinMode(L_TRIG_PIN, OUTPUT);
   pinMode(L_ECHO_PIN, INPUT);
-  
+
   pinMode(R_TRIG_PIN, OUTPUT);
   pinMode(R_ECHO_PIN, INPUT);
-  
+
   Serial.print("Found chip RC522 ");
   Serial.print("Firmware version 0x ");
   Serial.println(version, HEX);
@@ -100,7 +100,7 @@ void loop() {
   if (state == FIND_TAG){
     String good_tag = "False";
     found_tag = nfc.requestTag(MF1_REQIDL, tag_data);
-    
+
     if(found_tag == MI_OK){
       delay(200);
       read_tag = nfc.antiCollision(tag_data);
@@ -123,7 +123,7 @@ void loop() {
         }
       }
     }
-  } 
+  }
 
   else if(state ==  TAG_FOUND){
     if( Serial.available() > 0){
@@ -133,7 +133,7 @@ void loop() {
 //        int time1 = millis();
 //        int crnt_time = millis();
 //        while(crnt_time - time1 < 2000){
-//          crnt_time = millis();  
+//          crnt_time = millis();
 //          digitalWrite(GREENLED, HIGH);
 //          digitalWrite(BLUELED, LOW);
 //        }
@@ -144,7 +144,7 @@ void loop() {
 //        int time1 = millis();
 //        int crnt_time = millis();
 //        while(crnt_time - time1 < 2000){
-//          crnt_time = millis();  
+//          crnt_time = millis();
 //          digitalWrite(GREENLED, LOW);
 //          digitalWrite(BLUELED, HIGH);
 //        }
@@ -153,14 +153,14 @@ void loop() {
       }
     }
   }
- 
+
   else if(state == VENDING){
     l_button_state = digitalRead(L_BUTTON);
     r_button_state = digitalRead(R_BUTTON);
 
-    
+
     if(l_button_state == HIGH && r_button_state == LOW){
-      vend(L_ECHO_PIN, L_TRIG_PIN, L_MOTOR); 
+      vend(L_ECHO_PIN, L_TRIG_PIN, L_MOTOR);
       state = FIND_TAG;
     } else if (l_button_state == LOW && r_button_state == HIGH){
       vend(R_ECHO_PIN, R_TRIG_PIN, R_MOTOR);
@@ -168,4 +168,4 @@ void loop() {
     }
   }
 
-} 
+}
