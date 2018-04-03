@@ -1,4 +1,8 @@
 import serial
+from firebase import firebase
+
+FIREBASE_ROOT = 'https://vendinghealth-alpha.firebaseio.com'
+firebase = firebase.FirebaseApplication(FIREBASE_ROOT, None)
 
 serial_port = '/dev/ttyUSB0'
 baud_rate = 9600
