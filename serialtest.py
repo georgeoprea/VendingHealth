@@ -26,11 +26,25 @@ def extractCardID( line ):
 	# return id
 	return "47 C1 8D AB"  # TODO: for test
 
-def extractProductCost( line ):
+def extractProductID( line ):
 	#parse line
-	#extract cost
+	#extract ID
 
-	return 200		# TODO: for test
+	return 2		# TODO: for test
+
+def getProductByID( id ):
+	result = firebase.get('/Products', None)
+ 	prod = result.get(id)
+	if(prod == None):
+		print("\nNULL PRODUCT\n")
+		return None
+	else:
+		print("PRODUCT::::")
+		print(product)
+		return product
+
+def getProductCost( product ):
+	return product.get("kcal")
 
 def getBalance( user ):
 	return user.get("balance")
@@ -58,6 +72,7 @@ while True:
 			response = ser.readline()
 			print(line)
 			if "done" in response:
+				print("Done Vending.")
 				break
 		else:
 			ser.write("n")
