@@ -7,6 +7,16 @@ firebase = firebase.FirebaseApplication(FIREBASE_ROOT, None)
 serial_port = '/dev/ttyUSB0'
 baud_rate = 9600
 
+def checkIDmatch( id ):
+	result = firebase.get('/Users', None)
+	# if 
+
+def extractCardID( line ):
+	# TODO: parse line to get card ID:
+	id = ""
+	# id = line.parse...
+	return id
+
 ser = serial.Serial(serial_port, baud_rate)
 while True:
 	line = ser.readline()
