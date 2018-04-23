@@ -75,11 +75,11 @@ void setup() {
     while(1);
   }
 
-//  pinMode(GREENLED, OUTPUT);
-//  pinMode(BLUELED, OUTPUT);
+	//  pinMode(GREENLED, OUTPUT);
+	//  pinMode(BLUELED, OUTPUT);
 
-//  digitalWrite(GREENLED, LOW);
-//  digitalWrite(BLUELED, LOW);
+	//  digitalWrite(GREENLED, LOW);
+	//  digitalWrite(BLUELED, LOW);
 
   pinMode(L_BUTTON, INPUT);
   pinMode(R_BUTTON, INPUT);
