@@ -1,9 +1,11 @@
 import serial
 from firebase import firebase
 
+# Firebase setup
 FIREBASE_ROOT = 'https://vendinghealth-alpha.firebaseio.com'
 firebase = firebase.FirebaseApplication(FIREBASE_ROOT, None)
 
+#Arduino Communication
 serial_port = '/dev/ttyUSB0'
 baud_rate = 9600
 ser = serial.Serial(serial_port, baud_rate)
@@ -49,41 +51,51 @@ def getProductCost( product ):
 def getBalance( user ):
 	return user.get("balance")
 
+# TODO function that checks if cost is lower than balance
+
 while True:
 	line = ser.readline()
+	print("serial line::: ", line)
 	line = line.decode("utf-8")
 	id = extractCardID( line )
-	cost = extractProductCost( line )
 
-	user = getUserByID(id)
-	if user == None:
-		print("Non Existent User")
-		continue
-
-	balance = getBalance(user)
-
-	print("balance:" + balance)
-
-	if (balance >= cost):
-		print("Vending...")
-
-		ser.write("y")
-		while True:
-			response = ser.readline()
-			print(line)
-			if "done" in response:
-				print("Done Vending.")
-				break
-		else:
-			ser.write("n")
-		print(line)
-	# if id in line:
+	#
+	# cost = extractProductCost( line )
+	#
+	# user = getUserByID(id)
+	# if user == None:
+	# 	ser.write("U0")
+	# 	continue
+	# else:
+	# 	ser.write("U1")
+	#
+	# balance = getBalance(user)
+	#
+	# print("balance:" + balance)
+	#
+	# if (balance >= cost):
+	# 	print("Vending...")
+	#
 	# 	ser.write("y")
 	# 	while True:
 	# 		response = ser.readline()
 	# 		print(line)
 	# 		if "done" in response:
+	# 			print("Done Vending.")
 	# 			break
 	# 	else:
 	# 		ser.write("n")
 	# 	print(line)
+	#
+
+
+	if id in line:
+		ser.write("y")
+		while True:
+			response = ser.readline()
+			print(line)
+			if "done" in response:
+				break
+		else:
+			ser.write("n")
+		print(line)
