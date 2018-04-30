@@ -75,11 +75,11 @@ void setup() {
     while(1);
   }
 
-//  pinMode(GREENLED, OUTPUT);
-//  pinMode(BLUELED, OUTPUT);
+	//  pinMode(GREENLED, OUTPUT);
+	//  pinMode(BLUELED, OUTPUT);
 
-//  digitalWrite(GREENLED, LOW);
-//  digitalWrite(BLUELED, LOW);
+	//  digitalWrite(GREENLED, LOW);
+	//  digitalWrite(BLUELED, LOW);
 
   pinMode(L_BUTTON, INPUT);
   pinMode(R_BUTTON, INPUT);
@@ -97,7 +97,7 @@ void setup() {
 }
 
 void loop() {
-  if (state == FIND_TAG){
+  if (state == FIND_TAG){			//looking for tag
     String good_tag = "False";
     found_tag = nfc.requestTag(MF1_REQIDL, tag_data);
 
@@ -106,14 +106,14 @@ void loop() {
       read_tag = nfc.antiCollision(tag_data);
       memcpy(tag_serial_num, tag_data, 4);
 
-      Serial.print("Tag detected. Serial number: ");
+      // Serial.print("Tag detected. Serial number: ");
       for(int i = 0; i < 4; i++){
         Serial.print(tag_serial_num[i], HEX);
         Serial.print(" ");
       }
       Serial.println();
 
-      for(int i =0; i < 4; i++){
+      for(int i = 0; i < 4; i++){
         if(good_tag_serial_num[i] != tag_serial_num[i]){
           break;
         }
@@ -125,7 +125,7 @@ void loop() {
     }
   }
 
-  else if(state ==  TAG_FOUND){
+  else if(state ==  TAG_FOUND){			// a tag was read
     if( Serial.available() > 0){
        char response;
        response = Serial.read();
