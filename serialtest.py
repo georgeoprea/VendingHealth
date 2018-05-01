@@ -58,17 +58,15 @@ while True:
 	print("serial line::: ", line)
 	line = line.decode("utf-8")
 	id = extractCardID( line )
+	cost = extractProductCost( line )
 
-	#
-	# cost = extractProductCost( line )
-	#
-	# user = getUserByID(id)
-	# if user == None:
-	# 	ser.write("U0")
-	# 	continue
-	# else:
-	# 	ser.write("U1")
-	#
+	user = getUserByID(id)
+	if user == None:
+		ser.write("U0")		#put Arduino in FINDING_USER state
+		continue
+	else:
+		ser.write("U1")		#put Arduino in FOUND_USER state
+	
 	# balance = getBalance(user)
 	#
 	# print("balance:" + balance)
@@ -89,13 +87,13 @@ while True:
 	#
 
 
-	if id in line:
-		ser.write("y")
-		while True:
-			response = ser.readline()
-			print(line)
-			if "done" in response:
-				break
-		else:
-			ser.write("n")
-		print(line)
+	# if id in line:
+	# 	ser.write("y")
+	# 	while True:
+	# 		response = ser.readline()
+	# 		print(line)
+	# 		if "done" in response:
+	# 			break
+	# 	else:
+	# 		ser.write("n")
+	# 	print(line)
