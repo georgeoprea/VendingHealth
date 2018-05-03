@@ -53,6 +53,10 @@ def getBalance( user ):
 
 # TODO function that checks if cost is lower than balance
 
+def getProductID_fromArduino():
+	prodID = ser.readline()
+	return prodID
+
 while True:
 	line = ser.readline()
 	print("serial line::: ", line)
@@ -66,8 +70,17 @@ while True:
 		continue
 	else:
 		ser.write("U1")		#put Arduino in FOUND_USER state
-	
-	# balance = getBalance(user)
+
+	balance = getBalance(user)
+
+	productID = getProductID_fromArduino(ser)
+	productCost = getProductCost(productID)
+
+	if (balance - productCost) >= 0:
+		print("print in serial that it can vend")
+	else:
+		print("print in serial that it can't vend. also show insufficient funds")
+
 	#
 	# print("balance:" + balance)
 	#
