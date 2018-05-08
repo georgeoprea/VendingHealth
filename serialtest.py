@@ -10,6 +10,9 @@ serial_port = '/dev/ttyUSB0'
 baud_rate = 9600
 ser = serial.Serial(serial_port, baud_rate)
 
+def formatForFirebase(id):
+	return `id` + ' '
+
 def updateUserBalance(user, product):
 	user["balance"] = user["balance"] - product["kcal"]
 	userpath = '/Users/' + hcUserID
