@@ -10,6 +10,12 @@ serial_port = '/dev/ttyUSB0'
 baud_rate = 9600
 ser = serial.Serial(serial_port, baud_rate)
 
+def updateUserBalance(user, product):
+	user["balance"] = user["balance"] - product["kcal"]
+	userpath = '/Users/' + hcUserID
+	val = {"balance" : user["balance"]}
+	result = firebase.patch(userpath, val)
+
 def getUserByID( id ):
 	result = firebase.get('/Users', None)
  	user = result.get(id)
@@ -57,12 +63,18 @@ def getProductID_fromArduino():
 	prodID = ser.readline()
 	return prodID
 
-while True:
+def _readLineSerial():
 	line = ser.readline()
-	print("serial line::: ", line)
 	line = line.decode("utf-8")
-	id = extractCardID( line )
-	cost = extractProductCost( line )
+	return line
+
+def getProductStock(product):
+	return 2
+
+while True:
+	line = _readLineSerial()
+	id = extractCardID(line)
+	cost = extractProductCost(line)
 
 	user = getUserByID(id)
 	if user == None:
@@ -72,9 +84,9 @@ while True:
 		ser.write("U1")		#put Arduino in FOUND_USER state
 
 	balance = getBalance(user)
-
 	productID = getProductID_fromArduino(ser)
-	productCost = getProductCost(productID)
+	product = getProductByID(productID)
+	productCost = getProductCost(product)
 
 	if (balance - productCost) >= 0:
 		print("print in serial that it can vend")
