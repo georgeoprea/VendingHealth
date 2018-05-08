@@ -16,7 +16,8 @@ namespace VendingHealthClientApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            //Application.Run(new SignInPage());
+            Application.Run(new MainApp());
         }
     }
 }

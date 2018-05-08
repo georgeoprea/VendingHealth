@@ -1,6 +1,6 @@
 ﻿namespace VendingHealthClientApp
 {
-    partial class Form1
+    partial class SignInPage
     {
         /// <summary>
         /// Required designer variable.
@@ -66,9 +66,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.label1.Location = new System.Drawing.Point(171, 249);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 25);
+            this.label1.Size = new System.Drawing.Size(70, 29);
             this.label1.TabIndex = 3;
             this.label1.Text = "User:";
             this.label1.Click += new System.EventHandler(this.label1_Click);
@@ -76,9 +78,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.label2.Location = new System.Drawing.Point(122, 306);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(112, 25);
+            this.label2.Size = new System.Drawing.Size(126, 29);
             this.label2.TabIndex = 4;
             this.label2.Text = "Password:";
             // 

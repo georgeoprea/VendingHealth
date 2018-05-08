@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace VendingHealthClientApp
 {
-    public partial class Form1 : Form
+    public partial class SignInPage : Form
     {
-        public Form1()
+        public SignInPage()
         {
             InitializeComponent();
         }
