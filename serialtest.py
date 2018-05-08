@@ -27,6 +27,25 @@ def getUserByID( id ):
 	else:
 		return user
 
+def getProductByID( id ):
+	result = firebase.get('/Products', None)
+ 	product = result.get(id)
+	if(product == None):
+		return None
+	else:
+		return product
+
+def getProductCost( product ):
+	return product.get("kcal")
+
+def getBalance( user ):
+	return user.get("balance")
+
+# TODO function that checks if cost is lower than balance
+
+def getProductStock(product):
+	return product.get("stock")
+
 def extractCardID( line ):
 	# TODO: parse line to get card ID:
 	id = ""
@@ -40,25 +59,6 @@ def extractProductID( line ):
 
 	return 2		# TODO: for test
 
-def getProductByID( id ):
-	result = firebase.get('/Products', None)
- 	prod = result.get(id)
-	if(prod == None):
-		print("\nNULL PRODUCT\n")
-		return None
-	else:
-		print("PRODUCT::::")
-		print(product)
-		return product
-
-def getProductCost( product ):
-	return product.get("kcal")
-
-def getBalance( user ):
-	return user.get("balance")
-
-# TODO function that checks if cost is lower than balance
-
 def getProductID_fromArduino():
 	prodID = ser.readline()
 	return prodID
@@ -67,9 +67,6 @@ def _readLineSerial():
 	line = ser.readline()
 	line = line.decode("utf-8")
 	return line
-
-def getProductStock(product):
-	return 2
 
 while True:
 	line = _readLineSerial()
