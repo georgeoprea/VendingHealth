@@ -20,11 +20,8 @@ def getUserByID( id ):
 	result = firebase.get('/Users', None)
  	user = result.get(id)
 	if(user == None):
-		print("\nNULL USER\n")
 		return None
 	else:
-		print("User::::")
-		print(user)
 		return user
 
 def extractCardID( line ):
