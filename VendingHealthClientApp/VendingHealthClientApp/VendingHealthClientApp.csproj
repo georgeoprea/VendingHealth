@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ProductsView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProductsView.Designer.cs">
+      <DependentUpon>ProductsView.cs</DependentUpon>
+    </Compile>
     <Compile Include="SignInPage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -62,6 +68,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MainApp.resx">
       <DependentUpon>MainApp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProductsView.resx">
+      <DependentUpon>ProductsView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SignInPage.resx">
       <DependentUpon>SignInPage.cs</DependentUpon>
