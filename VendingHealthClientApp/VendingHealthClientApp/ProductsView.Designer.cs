@@ -75,6 +75,7 @@
             // 
             // pictureBox1
             // 
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Right;
             this.pictureBox1.Location = new System.Drawing.Point(539, 66);
             this.pictureBox1.Name = "pictureBox1";
@@ -134,6 +135,7 @@
             // 
             // pictureBox2
             // 
+            this.pictureBox2.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Left;
             this.pictureBox2.Location = new System.Drawing.Point(3, 66);
             this.pictureBox2.Name = "pictureBox2";
@@ -152,7 +154,7 @@
             this.label3.Size = new System.Drawing.Size(857, 65);
             this.label3.TabIndex = 19;
             this.label3.Text = "(Make sure to click the images to find out more about the products)\r\n ";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label3.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // tableLayoutPanel1
             // 
@@ -164,8 +166,8 @@
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 13.45292F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 86.54709F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.45F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90.55F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(887, 536);
             this.tableLayoutPanel1.TabIndex = 20;
             // 
