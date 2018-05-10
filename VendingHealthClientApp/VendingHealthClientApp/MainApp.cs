@@ -42,7 +42,7 @@ namespace VendingHealthClientApp
             prodView = new ProductsView();
             prodView.Visible = true;
             prodView.Activate();
-            this.Close();
+            this.Hide();
         }
 
         private void MainApp_Activated(object sender, System.EventArgs e)

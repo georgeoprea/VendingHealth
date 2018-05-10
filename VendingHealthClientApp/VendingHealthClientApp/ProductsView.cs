@@ -24,7 +24,7 @@ namespace VendingHealthClientApp
             mainApp = new MainApp();
             mainApp.Visible = true;
             mainApp.Activate();
-            this.Close();
+            this.Hide();
         }
 
         private void product1PictureBox_Click(object sender, EventArgs e)
