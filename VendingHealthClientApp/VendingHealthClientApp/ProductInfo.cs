@@ -11,7 +11,7 @@ using Newtonsoft.Json.Linq;
 
 namespace VendingHealthClientApp
 {
-    class ProductInfo
+    public class ProductInfo
     {
         private HttpWebRequest firebaseRequest = (HttpWebRequest)WebRequest.Create("https://vendinghealth-alpha.firebaseio.com/.json");
 

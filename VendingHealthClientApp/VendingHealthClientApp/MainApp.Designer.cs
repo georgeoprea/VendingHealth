@@ -1,4 +1,6 @@
-﻿namespace VendingHealthClientApp
+﻿using System;
+
+namespace VendingHealthClientApp
 {
     partial class MainApp
     {
@@ -28,108 +30,97 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
+            this.usernameLabel = new System.Windows.Forms.Label();
+            this.seeProductsLabel = new System.Windows.Forms.Label();
+            this.creditCountDescriptionLabel = new System.Windows.Forms.Label();
+            this.creditCountLabel = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.goToProductsButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // label1
+            // usernameLabel
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.usernameLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label1.Location = new System.Drawing.Point(3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(496, 65);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Welcome back to VendingHealth, Nadina\r\n";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.usernameLabel.AutoSize = true;
+            this.usernameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.usernameLabel.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.usernameLabel.Location = new System.Drawing.Point(3, 0);
+            this.usernameLabel.Name = "usernameLabel";
+            this.usernameLabel.Size = new System.Drawing.Size(496, 65);
+            this.usernameLabel.TabIndex = 0;
+            this.usernameLabel.Text = "Welcome back to VendingHealth, Nadina\r\n";
+            this.usernameLabel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
-            // label2
+            // seeProductsLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-            this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.label2.Location = new System.Drawing.Point(3, 229);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(496, 64);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "To go see the available products";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label2.Click += new System.EventHandler(this.label2_Click);
+            this.seeProductsLabel.AutoSize = true;
+            this.seeProductsLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.seeProductsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+            this.seeProductsLabel.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.seeProductsLabel.Location = new System.Drawing.Point(3, 229);
+            this.seeProductsLabel.Name = "seeProductsLabel";
+            this.seeProductsLabel.Size = new System.Drawing.Size(496, 64);
+            this.seeProductsLabel.TabIndex = 3;
+            this.seeProductsLabel.Text = "To go see the available products";
+            this.seeProductsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label10
+            // creditCountDescriptionLabel
             // 
-            this.label10.AutoSize = true;
-            this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.label10.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label10.Location = new System.Drawing.Point(3, 79);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(496, 62);
-            this.label10.TabIndex = 14;
-            this.label10.Text = "Your current credit count:";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label10.Click += new System.EventHandler(this.label10_Click);
+            this.creditCountDescriptionLabel.AutoSize = true;
+            this.creditCountDescriptionLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.creditCountDescriptionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.creditCountDescriptionLabel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.creditCountDescriptionLabel.Location = new System.Drawing.Point(3, 79);
+            this.creditCountDescriptionLabel.Name = "creditCountDescriptionLabel";
+            this.creditCountDescriptionLabel.Size = new System.Drawing.Size(496, 62);
+            this.creditCountDescriptionLabel.TabIndex = 14;
+            this.creditCountDescriptionLabel.Text = "Your current credit count:";
+            this.creditCountDescriptionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label11
+            // creditCountLabel
             // 
-            this.label11.AutoSize = true;
-            this.label11.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.label11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.label11.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label11.Location = new System.Drawing.Point(3, 141);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(496, 77);
-            this.label11.TabIndex = 15;
-            this.label11.Text = "ZZZZ";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label11.Click += new System.EventHandler(this.label11_Click);
+            this.creditCountLabel.AutoSize = true;
+            this.creditCountLabel.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.creditCountLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.creditCountLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
+            this.creditCountLabel.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.creditCountLabel.Location = new System.Drawing.Point(3, 141);
+            this.creditCountLabel.Name = "creditCountLabel";
+            this.creditCountLabel.Size = new System.Drawing.Size(496, 77);
+            this.creditCountLabel.TabIndex = 15;
+            this.creditCountLabel.Text = "ZZZZ";
+            this.creditCountLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label13
             // 
-            this.label13.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label13.Dock = System.Windows.Forms.DockStyle.Top;
             this.label13.Location = new System.Drawing.Point(3, 65);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(496, 2);
-            this.label13.TabIndex = 17;
-            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label13.Size = new System.Drawing.Size(100, 14);
+            this.label13.TabIndex = 16;
             // 
             // label14
             // 
-            this.label14.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label14.Dock = System.Windows.Forms.DockStyle.Top;
             this.label14.Location = new System.Drawing.Point(3, 218);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(496, 2);
-            this.label14.TabIndex = 18;
-            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label14.Click += new System.EventHandler(this.label14_Click);
+            this.label14.Size = new System.Drawing.Size(100, 11);
+            this.label14.TabIndex = 0;
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.label14, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label11, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.usernameLabel, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.creditCountLabel, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.label13, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label10, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.button1, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.creditCountDescriptionLabel, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.seeProductsLabel, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.goToProductsButton, 0, 6);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -144,20 +135,21 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(502, 346);
             this.tableLayoutPanel1.TabIndex = 19;
             // 
-            // button1
+            // goToProductsButton
             // 
-            this.button1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.button1.FlatAppearance.BorderSize = 2;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.button1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button1.Location = new System.Drawing.Point(3, 296);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(496, 47);
-            this.button1.TabIndex = 19;
-            this.button1.Text = "Click Here";
-            this.button1.UseVisualStyleBackColor = false;
+            this.goToProductsButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.goToProductsButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.goToProductsButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.goToProductsButton.FlatAppearance.BorderSize = 2;
+            this.goToProductsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.goToProductsButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.goToProductsButton.Location = new System.Drawing.Point(3, 296);
+            this.goToProductsButton.Name = "goToProductsButton";
+            this.goToProductsButton.Size = new System.Drawing.Size(496, 47);
+            this.goToProductsButton.TabIndex = 19;
+            this.goToProductsButton.Text = "Click Here";
+            this.goToProductsButton.UseVisualStyleBackColor = false;
+            this.goToProductsButton.Click += new System.EventHandler(this.goToProductsButton_Click);
             // 
             // MainApp
             // 
@@ -174,18 +166,20 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainApp_FormClosed);
+            this.Activated += new EventHandler(this.MainApp_Activated);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label usernameLabel;
+        private System.Windows.Forms.Label seeProductsLabel;
+        private System.Windows.Forms.Label creditCountDescriptionLabel;
+        private System.Windows.Forms.Label creditCountLabel;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button goToProductsButton;
     }
 }

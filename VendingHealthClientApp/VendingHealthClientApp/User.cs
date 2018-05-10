@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VendingHealthClientApp
 {
-    class User
+    public class User
     {
         public int Balance { get; set; }
 

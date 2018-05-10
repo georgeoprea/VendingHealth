@@ -12,9 +12,39 @@ namespace VendingHealthClientApp
 {
     public partial class ProductsView : Form
     {
+        private MainApp mainApp;
+
         public ProductsView()
-        {
+        {           
             InitializeComponent();
+        }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            mainApp = new MainApp();
+            mainApp.Visible = true;
+            mainApp.Activate();
+            this.Close();
+        }
+
+        private void product1PictureBox_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void product2PictureBox_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ProductsView_Activated(object sender, System.EventArgs e)
+        {
+
+        }
+
+        private void ProductsView_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

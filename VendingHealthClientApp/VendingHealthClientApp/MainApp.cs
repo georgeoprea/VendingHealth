@@ -12,19 +12,23 @@ namespace VendingHealthClientApp
 {
     public partial class MainApp : Form
     {
+        private ProductsView prodView;
+        private User user;
+
         public MainApp()
         {
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        public MainApp(User user)
         {
-
+            this.user = user;
+            InitializeComponent();
         }
 
-        private void label3_Click(object sender, EventArgs e)
+        private void displayCredits()
         {
-
+            
         }
 
         private void MainApp_Load(object sender, EventArgs e)
@@ -32,69 +36,23 @@ namespace VendingHealthClientApp
 
         }
 
-        private void label12_Click(object sender, EventArgs e)
+        private void goToProductsButton_Click(object sender, EventArgs e)
         {
-
+            
+            prodView = new ProductsView();
+            prodView.Visible = true;
+            prodView.Activate();
+            this.Close();
         }
 
-        private void label10_Click(object sender, EventArgs e)
+        private void MainApp_Activated(object sender, System.EventArgs e)
         {
-
+            
         }
 
-        private void label11_Click(object sender, EventArgs e)
+        private void MainApp_FormClosed(object sender, FormClosedEventArgs e)
         {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label9_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label8_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label14_Click(object sender, EventArgs e)
-        {
-
+            Application.Exit();
         }
     }
 }

@@ -12,29 +12,29 @@ namespace VendingHealthClientApp
 {
     public partial class SignInPage : Form
     {
+        private MainApp mainApp;
+
         public SignInPage()
         {
             InitializeComponent();
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void userTextBox_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void passwordTextBox_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void label4_Click(object sender, EventArgs e)
+        private void signInButton_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
+            mainApp = new MainApp();
+            mainApp.Visible = true;
+            mainApp.Activate();
+            this.Hide();
         }
     }
 }

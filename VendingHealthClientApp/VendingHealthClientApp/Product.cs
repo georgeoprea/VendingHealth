@@ -4,7 +4,7 @@ using System;
 
 namespace VendingHealthClientApp
 {
-    class Product
+    public class Product
     {
         [JsonProperty(PropertyName = "image")]
         public Uri ImageUri { get; set; }

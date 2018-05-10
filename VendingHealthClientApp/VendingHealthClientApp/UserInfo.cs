@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace VendingHealthClientApp
 {
-    class UserInfo
+    public class UserInfo
     {
         private HttpWebRequest firebaseRequest = (HttpWebRequest)WebRequest.Create("https://vendinghealth-alpha.firebaseio.com/.json");
 
