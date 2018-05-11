@@ -19,7 +19,6 @@ C:\Users\nadis\Desktop\facultate\an 3\ES\VendingMachine\VendingHealth\VendingHea
 C:\Users\nadis\Desktop\facultate\an 3\ES\VendingMachine\VendingHealth\VendingHealthClientApp\VendingHealthClientApp\obj\Debug\VendingHealthClientApp.Properties.Resources.resources
 C:\Users\nadis\Desktop\facultate\an 3\ES\VendingMachine\VendingHealth\VendingHealthClientApp\VendingHealthClientApp\obj\Debug\VendingHealthClientApp.csproj.GenerateResource.Cache
 C:\Users\nadis\Desktop\facultate\an 3\ES\VendingMachine\VendingHealth\VendingHealthClientApp\VendingHealthClientApp\obj\Debug\VendingHealthClientApp.ProductsView.resources
-C:\Users\nadis\Desktop\facultate\an 3\ES\VendingMachine\VendingHealth\VendingHealthClientApp\VendingHealthClientApp\bin\Debug\Firebase.dll
 C:\Users\nadis\Desktop\facultate\an 3\ES\VendingMachine\VendingHealth\VendingHealthClientApp\VendingHealthClientApp\bin\Debug\Newtonsoft.Json.dll
 C:\Users\nadis\Desktop\facultate\an 3\ES\VendingMachine\VendingHealth\VendingHealthClientApp\VendingHealthClientApp\bin\Debug\System.Reactive.Core.dll
 C:\Users\nadis\Desktop\facultate\an 3\ES\VendingMachine\VendingHealth\VendingHealthClientApp\VendingHealthClientApp\bin\Debug\System.Reactive.Interfaces.dll
@@ -33,3 +32,18 @@ C:\Users\nadis\Desktop\facultate\an 3\ES\VendingMachine\VendingHealth\VendingHea
 C:\Users\nadis\Desktop\facultate\an 3\ES\VendingMachine\VendingHealth\VendingHealthClientApp\VendingHealthClientApp\bin\Debug\System.Reactive.Linq.xml
 C:\Users\nadis\Desktop\facultate\an 3\ES\VendingMachine\VendingHealth\VendingHealthClientApp\VendingHealthClientApp\bin\Debug\System.Reactive.PlatformServices.xml
 C:\Users\nadis\Desktop\facultate\an 3\ES\VendingMachine\VendingHealth\VendingHealthClientApp\VendingHealthClientApp\bin\Debug\System.Reactive.Windows.Threading.xml
+C:\Users\nadis\Desktop\facultate\an 3\ES\VendingHealthClientApp\VendingHealthClientApp\bin\Debug\Firebase.dll
+C:\Users\nadis\Desktop\facultate\an 3\ES\VendingHealthClientApp\VendingHealthClientApp\bin\Debug\Newtonsoft.Json.dll
+C:\Users\nadis\Desktop\facultate\an 3\ES\VendingHealthClientApp\VendingHealthClientApp\bin\Debug\System.Reactive.Core.dll
+C:\Users\nadis\Desktop\facultate\an 3\ES\VendingHealthClientApp\VendingHealthClientApp\bin\Debug\System.Reactive.Interfaces.dll
+C:\Users\nadis\Desktop\facultate\an 3\ES\VendingHealthClientApp\VendingHealthClientApp\bin\Debug\System.Reactive.Linq.dll
+C:\Users\nadis\Desktop\facultate\an 3\ES\VendingHealthClientApp\VendingHealthClientApp\bin\Debug\System.Reactive.PlatformServices.dll
+C:\Users\nadis\Desktop\facultate\an 3\ES\VendingHealthClientApp\VendingHealthClientApp\bin\Debug\System.Reactive.Windows.Threading.dll
+C:\Users\nadis\Desktop\facultate\an 3\ES\VendingHealthClientApp\VendingHealthClientApp\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\Users\nadis\Desktop\facultate\an 3\ES\VendingHealthClientApp\VendingHealthClientApp\bin\Debug\Newtonsoft.Json.xml
+C:\Users\nadis\Desktop\facultate\an 3\ES\VendingHealthClientApp\VendingHealthClientApp\bin\Debug\System.Reactive.Core.xml
+C:\Users\nadis\Desktop\facultate\an 3\ES\VendingHealthClientApp\VendingHealthClientApp\bin\Debug\System.Reactive.Interfaces.xml
+C:\Users\nadis\Desktop\facultate\an 3\ES\VendingHealthClientApp\VendingHealthClientApp\bin\Debug\System.Reactive.Linq.xml
+C:\Users\nadis\Desktop\facultate\an 3\ES\VendingHealthClientApp\VendingHealthClientApp\bin\Debug\System.Reactive.PlatformServices.xml
+C:\Users\nadis\Desktop\facultate\an 3\ES\VendingHealthClientApp\VendingHealthClientApp\bin\Debug\System.Reactive.Windows.Threading.xml
+C:\Users\nadis\Desktop\facultate\an 3\ES\VendingHealthClientApp\VendingHealthClientApp\obj\Debug\VendingHealthClientApp.ProductsView.resources

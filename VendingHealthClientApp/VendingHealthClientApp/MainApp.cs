@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace VendingHealthClientApp
@@ -14,7 +7,7 @@ namespace VendingHealthClientApp
     {
         private ProductsView prodView;
         private User user;
-
+        private readonly string GREETING = "Welcome back to VendingHealth, ";
         public MainApp()
         {
             InitializeComponent();
@@ -26,20 +19,20 @@ namespace VendingHealthClientApp
             InitializeComponent();
         }
 
-        private void displayCredits()
+        private void displayUserInfo()
         {
-            
+            creditCountLabel.Text = user.Balance.ToString();
+            usernameLabel.Text = this.GREETING + user.Username; 
         }
 
         private void MainApp_Load(object sender, EventArgs e)
         {
-
+            displayUserInfo();
         }
 
         private void goToProductsButton_Click(object sender, EventArgs e)
         {
-            
-            prodView = new ProductsView();
+            prodView = new ProductsView(this);
             prodView.Visible = true;
             prodView.Activate();
             this.Hide();
@@ -47,7 +40,7 @@ namespace VendingHealthClientApp
 
         private void MainApp_Activated(object sender, System.EventArgs e)
         {
-            
+            displayUserInfo();
         }
 
         private void MainApp_FormClosed(object sender, FormClosedEventArgs e)

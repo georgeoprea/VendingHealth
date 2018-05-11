@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace VendingHealthClientApp
@@ -13,15 +6,22 @@ namespace VendingHealthClientApp
     public partial class ProductsView : Form
     {
         private MainApp mainApp;
-
+        private ProductInfo productInfo = new ProductInfo();
+        
         public ProductsView()
         {           
             InitializeComponent();
         }
 
+        public ProductsView(MainApp mainApp)
+        {
+            
+            this.mainApp = mainApp;
+            InitializeComponent();
+        }
+
         private void backButton_Click(object sender, EventArgs e)
         {
-            mainApp = new MainApp();
             mainApp.Visible = true;
             mainApp.Activate();
             this.Hide();
@@ -39,6 +39,16 @@ namespace VendingHealthClientApp
 
         private void ProductsView_Activated(object sender, System.EventArgs e)
         {
+            Product[] products = productInfo.GetProducts();
+
+            product1NameLabel.Text = products[0].Name;
+            product2NameLabel.Text = products[1].Name;
+
+            product1PictureBox.Load(products[0].ImageUri.ToString());
+            product2PictureBox.Load(products[1].ImageUri.ToString());
+
+            product1CreditsLabel.Text = products[0].Kcal.ToString();
+            product2CreditsLabel.Text = products[1].Kcal.ToString();
 
         }
 
