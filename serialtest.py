@@ -41,7 +41,11 @@ def getProductCost( product ):
 def getBalance( user ):
 	return user.get("balance")
 
-# TODO function that checks if cost is lower than balance
+def hasMoney(balance, cost):
+	if balance >= cost:
+		return True
+	else:
+		return False
 
 def getProductStock(product):
 	return product.get("stock")
@@ -85,11 +89,11 @@ while True:
 	product = getProductByID(productID)
 	productCost = getProductCost(product)
 
-	if (balance - productCost) >= 0:
+	if hasMoney(balance, productCost):
 		print("print in serial that it can vend")
 	else:
 		print("print in serial that it can't vend. also show insufficient funds")
-
+	
 	#
 	# print("balance:" + balance)
 	#
