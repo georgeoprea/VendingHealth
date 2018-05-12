@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Firebase.Database;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Net;
 using System.IO;
 using Newtonsoft.Json.Linq;
@@ -13,10 +7,10 @@ namespace VendingHealthClientApp
 {
     public class ProductInfo
     {
-        private HttpWebRequest firebaseRequest = (HttpWebRequest)WebRequest.Create("https://vendinghealth-alpha.firebaseio.com/.json");
-
         public Product[] GetProducts()
         {
+            HttpWebRequest firebaseRequest = (HttpWebRequest)WebRequest.Create("https://vendinghealth-alpha.firebaseio.com/.json");
+
             WebResponse response = firebaseRequest.GetResponse();
 
             Stream objStream = response.GetResponseStream();

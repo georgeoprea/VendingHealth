@@ -33,7 +33,7 @@ namespace VendingHealthClientApp
             this.product1NameLabel = new System.Windows.Forms.Label();
             this.product2NameLabel = new System.Windows.Forms.Label();
             this.product2PictureBox = new System.Windows.Forms.PictureBox();
-            this.products2Label = new System.Windows.Forms.Label();
+            this.product2CreditsLabel = new System.Windows.Forms.Label();
             this.product1CreditsLabel = new System.Windows.Forms.Label();
             this.credits2Label = new System.Windows.Forms.Label();
             this.credits1Label = new System.Windows.Forms.Label();
@@ -83,21 +83,22 @@ namespace VendingHealthClientApp
             this.product2PictureBox.Location = new System.Drawing.Point(572, 72);
             this.product2PictureBox.Name = "product2PictureBox";
             this.product2PictureBox.Size = new System.Drawing.Size(399, 318);
+            this.product2PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.product2PictureBox.TabIndex = 11;
             this.product2PictureBox.TabStop = false;
             this.product2PictureBox.Click += new System.EventHandler(this.product2PictureBox_Click);
             // 
-            // products2Label
+            // product2CreditsLabel
             // 
-            this.products2Label.AutoSize = true;
-            this.products2Label.Dock = System.Windows.Forms.DockStyle.Left;
-            this.products2Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.products2Label.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.products2Label.Location = new System.Drawing.Point(202, 0);
-            this.products2Label.Name = "products2Label";
-            this.products2Label.Size = new System.Drawing.Size(65, 60);
-            this.products2Label.TabIndex = 18;
-            this.products2Label.Text = "zzz";
+            this.product2CreditsLabel.AutoSize = true;
+            this.product2CreditsLabel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.product2CreditsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.product2CreditsLabel.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.product2CreditsLabel.Location = new System.Drawing.Point(202, 0);
+            this.product2CreditsLabel.Name = "product2CreditsLabel";
+            this.product2CreditsLabel.Size = new System.Drawing.Size(65, 60);
+            this.product2CreditsLabel.TabIndex = 18;
+            this.product2CreditsLabel.Text = "zzz";
             // 
             // product1CreditsLabel
             // 
@@ -144,6 +145,7 @@ namespace VendingHealthClientApp
             this.product1PictureBox.Location = new System.Drawing.Point(3, 72);
             this.product1PictureBox.Name = "product1PictureBox";
             this.product1PictureBox.Size = new System.Drawing.Size(396, 318);
+            this.product1PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.product1PictureBox.TabIndex = 14;
             this.product1PictureBox.TabStop = false;
             this.product1PictureBox.Click += new System.EventHandler(this.product1PictureBox_Click);
@@ -205,7 +207,7 @@ namespace VendingHealthClientApp
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel4.Controls.Add(this.credits2Label, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.products2Label, 1, 0);
+            this.tableLayoutPanel4.Controls.Add(this.product2CreditsLabel, 1, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Right;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(572, 396);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -251,6 +253,8 @@ namespace VendingHealthClientApp
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "ProductsView";
             this.Text = "ProductsView";
+            this.Activated += new System.EventHandler(this.ProductsView_Activated);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ProductsView_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.product2PictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.product1PictureBox)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -261,8 +265,7 @@ namespace VendingHealthClientApp
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
             this.ResumeLayout(false);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ProductsView_FormClosed);
-            this.Activated += new EventHandler(this.ProductsView_Activated);
+
         }
 
         #endregion
@@ -270,7 +273,7 @@ namespace VendingHealthClientApp
         private System.Windows.Forms.Label product1NameLabel;
         private System.Windows.Forms.Label product2NameLabel;
         private System.Windows.Forms.PictureBox product2PictureBox;
-        private System.Windows.Forms.Label products2Label;
+        private System.Windows.Forms.Label product2CreditsLabel;
         private System.Windows.Forms.Label product1CreditsLabel;
         private System.Windows.Forms.Label credits2Label;
         private System.Windows.Forms.Label credits1Label;

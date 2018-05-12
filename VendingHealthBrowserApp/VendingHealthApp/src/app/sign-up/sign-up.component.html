@@ -1,0 +1,57 @@
+<h2 class="well text-center" style="background-color: black; color: white">Sign Up!</h2>
+
+<form #signupForm="ngForm" (ngSubmit)="onSubmit()">
+
+  <span class=" offset-2 col-md-8">
+     <select class="form-control" [(ngModel)]="cardNumber" name="cardNumber" required  #CardNumber="ngModel">
+      <option value="0">Card 1</option>
+      <option value="1">Card 2</option>
+    </select>
+    <span class="error" [class.hide]="CardNumber.valid">
+      Card number is required!
+    </span>
+  </span>
+
+  <span class=" offset-2 col-md-8"> <br></span>
+
+  <span class=" offset-2 col-md-8">
+    <input class="form-control" type="text" pInputText placeholder="Username" required [(ngModel)]="newUser.username" name="username" style="color: black" #Username="ngModel">
+    <span class="error" [class.hide]="Username.valid">
+      Username is required!
+    </span>
+  </span>
+
+  <span class=" offset-2 col-md-8"> <br></span>
+
+  <span class=" offset-2 col-md-8">
+    <input class="form-control" type="password" pInputText placeholder="Password" required [(ngModel)]="newUser.password" name="password" style="color: black" #Password="ngModel">
+    <span class="error" [class.hide]="Password.valid">
+      Password is required!
+    </span>
+  </span>
+
+  <span class=" offset-2 col-md-8"> <br></span>
+
+  <span class=" offset-2 col-md-8">
+    <input class="form-control" type="text" pInputText placeholder="Email" required email [(ngModel)]="newUser.email" name="email" style="color: black" #Email="ngModel">
+    <span class="error" [class.hide]="Email.valid">
+      Valid email is required!
+    </span>
+  </span>
+
+  <span class=" offset-2 col-md-8"> <br></span>
+
+  <span class=" offset-2 col-md-8">
+    <select class="form-control" [(ngModel)]="newUser.balance" name="balance" required>
+      <option value="300">Diet(300kcal)</option>
+      <option value="600">Living healthier(600 kcal)</option>
+      <option value="1000">Sugar addict(1000kcal)</option>
+    </select>
+  </span>
+
+  <span class=" offset-2 col-md-8"> <br></span>
+
+  <span class=" offset-2 col-md-8">
+    <button pButton type="submit" label="Sign Up" class="ui-button-success" [disabled]="!signupForm.form.valid"></button>
+  </span>
+</form>
