@@ -13,11 +13,10 @@ ser = serial.Serial(serial_port, baud_rate)
 def formatForFirebase(id):
 	return `id` + ' '
 
-def updateUserBalance(user, product):
+def updateUserBalance(user, userID, product):
 	user["balance"] = user["balance"] - product["kcal"]
-	userpath = '/Users/' + hcUserID
-	val = {"balance" : user["balance"]}
-	result = firebase.patch(userpath, val)
+	userpath = '/Users/' + userID
+	result = firebase.patch(userpath, user)
 
 def getUserByID( id ):
 	result = firebase.get('/Users', None)
@@ -41,6 +40,17 @@ def getProductCost( product ):
 def getBalance( user ):
 	return user.get("balance")
 
+def hasStock(product):
+	if product["stock"] > 0:
+		return True
+	else:
+		return False
+
+def updateStock(product, productID):
+	product["stock"] = product["stock"] - 1
+	productpath = '/Products/' + ProductID
+	result = firebase.patch(userpath, product)
+
 def hasMoney(balance, cost):
 	if balance >= cost:
 		return True
@@ -51,49 +61,48 @@ def getProductStock(product):
 	return product.get("stock")
 
 def extractCardID( line ):
-	# TODO: parse line to get card ID:
-	id = ""
-	# id = line.parse...
-	# return id
-	return "47 C1 8D AB"  # TODO: for test
+	id = line
+	# return "47 C1 8D AB"  # TODO: for test
+	return id
 
 def extractProductID( line ):
-	#parse line
-	#extract ID
 
 	return 2		# TODO: for test
 
-def getProductID_fromArduino():
-	prodID = ser.readline()
+def getProductID(line):
+	prodID = line
 	return prodID
 
 def _readLineSerial():
+	#make blocking
 	line = ser.readline()
 	line = line.decode("utf-8")
 	return line
 
 while True:
-	line = _readLineSerial()
+	line = _readLineSerial()		#expect card number
 	id = extractCardID(line)
-	cost = extractProductCost(line)
 
 	user = getUserByID(id)
 	if user == None:
-		ser.write("U0")		#put Arduino in FINDING_USER state
+		ser.write("N")		#put Arduino in FINDING_USER state
 		continue
 	else:
-		ser.write("U1")		#put Arduino in FOUND_USER state
+		ser.write("Y")		#put Arduino in FOUND_USER state
 
-	balance = getBalance(user)
-	productID = getProductID_fromArduino(ser)
+# product extraction
+	line = _readLineSerial()		#expect button number
+	productID = getProductID(line)
 	product = getProductByID(productID)
-	productCost = getProductCost(product)
-
-	if hasMoney(balance, productCost):
-		print("print in serial that it can vend")
+	productCost = getProductCost(product)	#number of kcal of product
+	balance = getBalance(user)
+	if hasMoney(balance, productCost) && hasStock(product):
+		ser.write("Y")
+		updateStock(product, productID)
 	else:
-		print("print in serial that it can't vend. also show insufficient funds")
-	
+		ser.write("N")
+
+
 	#
 	# print("balance:" + balance)
 	#

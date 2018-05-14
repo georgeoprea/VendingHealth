@@ -11,9 +11,11 @@ def formatForFirebase(id):
 
 def updateUserBalance(user, product):
 	user["balance"] = user["balance"] - product["kcal"]
+	print user
 	userpath = '/Users/' + hcUserID
-	val = {"balance" : user["balance"]}
-	result = firebase.patch(userpath, val)
+	result = firebase.patch(userpath, user)
+	# val = {"balance" : user["balance"]}
+	# result = firebase.patch(userpath, val)
 
 def getUserByID( id ):
 	result = firebase.get('/Users', None)
