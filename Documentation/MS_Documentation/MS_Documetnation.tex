@@ -188,21 +188,28 @@ The software components and data flow directions are depicted in Figure \ref{fig
 \end{figure}
 
 \subsection{Arduino Modules}
+The main module contains the following main components:
 
+\begin{itemize}
+\item start\_motor and stop\_all\_motors: simple functions for spinning and stopping motors
+\item vend: spins a certain motor based on the input from the sensors; if the sensors detect that a product has fallen, the motors will be stopped
+\item setup: the RFID reader is detected and then initialized; pin modes for all components are set; Serial communication is initialized; SPI is initialized for RFID reader
+\item loop: implements a state machine with 5 states -> WAIT\_FOR\_TAG,  CARD\_CONFIRMATION, PRODUCT\_SELECTION, STOCK\_AND\_BALANCE\_CHECK, VENDING; each state implements small parts of the vending cycle, described by the state names\\
+\end{itemize}
+
+The main module uses the MFRC522 library for RFID handling. It provides an easy interface of connecting and communicating with the RFID reader. It provides functions and macros for 
+setting the pins attached to the reader, getting firmware version and reading the actual tag information from the card.
 \subsection{Python Modules}
 \textit{You should not concentrate on providing line level descriptions, but rather class/script/module level explanations. Short code comments are strongly advised. Third party libraries should also have a brief description and a reference link.}\\
 
-write\_firebase\_sensor.py: it retrieves the temperature and humidity tuple from DHT-22 sensor over the one-wire interface and then pushes it to Firebase every 1 second. \\
+connectionModule.py:  \\
 
-Adafruit\_DHT22 library: it provides a quick implementation of one-wire interface communication with the sensor.
-
-\subsection{Firebase}
-\textit{Describe the purpose of the service and present the specifics you are using.}\\
-
-Firebase is a PaaS (Platform as a Service) which means it offers developers to a quick list of functionalities supported by a traditional backend.
-Realtime Database simplifies storing and synchronising data between different devices in realtime using a noSQL database.
-
-The following code section shows the initialization of the Firebase project.\\
+\begin{python}
+#Arduino Communication
+serial_port = '/dev/ttyUSB0'
+baud_rate = 9600
+ser = serial.Serial(serial_port, baud_rate)
+\end{python}
 
 \begin{python}
 # root of the project
@@ -211,12 +218,92 @@ FIREBASE_ROOT = 'https://vendinghealth-alpha.firebaseio.com'
 firebase = firebase.FirebaseApplication(FIREBASE_ROOT, None)
 \end{python}
 
+The functions that operate on the Firebase database:
+\begin{itemize}
+\item updateUserBalance(user, userID, product)
+\item getUserByID(id)
+\item getProductByID(id)
+\item updateStock(product, productID)\\\\
+\end{itemize}
+
+An example of an update of a node in the database through the Firebase Python wrapper:
+\begin{python}
+def updateStock(product, productID):
+	product["stock"] = product["stock"] - 1
+	productpath = '/Products/' + ProductID
+	result = firebase.patch(userpath, product)
+\end{python}
+
+The functions that operate on the data rceived from the databse (simple business logic):
+\begin{itemize}
+\item getProductCost(product)
+\item getBalance(user)
+\item hasStock(product)
+\item getProductStock(product)\\
+\end{itemize}
+
+The main logic of the module is found in an infinite loop which uses the functions above and communicates directly with the Arduino module.\\
+
+A small fragment of code shows the communication between the Arduino and RPi. The RPi sends a response to the Arduino based on some business logic:
+\begin{python}
+if hasMoney(balance, productCost) && hasStock(product):
+	ser.write("Y")
+	updateStock(product, productID)
+else:
+	ser.write("N")
+\end{python}
+
+Firebase library: It provides an interface for Firebase database communication from python, allowing simple retrieval of data from the database.\\
+
+Serial library: This library acts as a wrapper over the serial interface of the Raspberry Pi and provides functions for reading and writing strings into the serial port (which it marshals and unmarhals into bit streams).
+\subsection{Firebase}
+
+Firebase is a PaaS (Platform as a Service) which means it offers developers to a quick list of functionalities supported by a traditional backend.
+Realtime Database simplifies storing and synchronising data between different devices in realtime using a noSQL database.\\
+
+The database is divided into two parts: Products and Users. Each of these parts is represented as a node in the database. The Products node identifies the available products from the vending machine, 
+while the Users node maintains the card IDs from the vending machine and the users associated with them.\\
+
+The cloud storage functionallity is also used to hold the desktop client appllication. It can be downloaded from storage via the web application.
 \subsection{Desktop Client Application}
-\textit{Explain the responsibility of some key entities contained in your Android project.}
+The Desktop App is developed in C\# using Windows Forms. Several other packages are used for JSON handling and HTTP requests handling.\\
+ 
+The application is comprised of the following layers: {\bf UI}, {\bf Database Access}, {\bf Data Classes}.\\
+
+The {\bf UI} has three parts:
+\begin{itemize}
+\item MainApp: Windows Form which shows the user his/her remaining credit count
+\item ProductsView: Windows Form which allows the user to see the credit cost of the products from the machine
+\item SignInPage: Windows Form that prompts user to enter his/her user credentials\\
+\end{itemize}
+
+The {\bf Database Access} layer has two parts:
+\begin{itemize}
+\item ProductInfo: class that connects to Firebase and retreives all products stored in json format
+\item UserInfo: class that connects to Firebase and checks if a user credentials are valid\\
+\end{itemize}
+
+The {\bf Data Classes} layer has two classes: Product and User. The JSON data received from the database
+is deserialized into these objects. They are used by the UI in order to output the necessary information into the view.\\ 
 
 \subsection{Browser Application}
-\textit{Give a brief description of the main parts contained by the JavaScript module.}
+The Browser application is written in Angular and is a serverless SPA.\\
+The following Angular components are part of the project: 
+\begin{itemize}
+\item login: allows admin login
+\item sign-up: allows users to register to a certain card 
+\item home: provides app download, sign-up and login posibilities to the user 
+\item products: allows modification and addition of new products in the vending machine to be represented in the database
+\item app: entry point of application, provides the routing outlet\\
+\end{itemize}
 
+The application provides three services: sign-up.service, product-register.service, login.service. They all contain an HttpClient
+which allows for easy handling of http requests. An example is shown below of a simple get request to firebase.
+\begin{python}
+getAdmin() : Observable<User>{
+    return this.http.get<User>(this.firebase);
+  }
+\end{python}
 \section{Results and further work}
 
 The current version of the project supports the following functionalities:
@@ -235,6 +322,7 @@ The following list of extensions and improvements was identified to be supported
 \item allow extending the number of cards that can be used with the machine 
 \item improve application security (encrypt sensitive user information)
 \item allow more vending machines in the Firebase database by creating a new node for each one
+\item allow more snack slots in the machine and database
 \end{itemize}
 
 \newpage

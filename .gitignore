@@ -1,3 +1,6 @@
 VendingHealthBrowserApp/.idea
 VendingHealthBrowserApp/VendingHealthApp/node_modules
 VendingHealthClientApp/packages
+VendingHealthClientApp/.vs
+VendingHealthClientApp/VendingHealthClientApp/bin
+VendingHealthClientApp/VendingHealthClientApp/obj
