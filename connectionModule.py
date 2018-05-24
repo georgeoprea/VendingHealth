@@ -13,6 +13,8 @@ ser = serial.Serial(serial_port, baud_rate)
 def formatForFirebase(id):
 	return `id` + ' '
 
+# Firebase Communication
+
 def updateUserBalance(user, userID, product):
 	user["balance"] = user["balance"] - product["kcal"]
 	userpath = '/Users/' + userID
@@ -60,14 +62,12 @@ def hasMoney(balance, cost):
 def getProductStock(product):
 	return product.get("stock")
 
+# Arduino data extraction
+
 def extractCardID( line ):
 	id = line
 	# return "47 C1 8D AB"  # TODO: for test
 	return id
-
-def extractProductID( line ):
-
-	return 2		# TODO: for test
 
 def getProductID(line):
 	prodID = line
@@ -81,8 +81,7 @@ def _readLineSerial():
 
 while True:
 	line = _readLineSerial()		#expect card number
-	id = extractCardID(line)
-
+	id = getProductID(line)
 	user = getUserByID(id)
 	if user == None:
 		ser.write("N")		#put Arduino in FINDING_USER state
