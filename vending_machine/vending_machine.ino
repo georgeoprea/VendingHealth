@@ -123,7 +123,7 @@ void loop() {
 			}
 			break;
 
-		case TAG_FOUND:
+		case TAG_FOUND:				//TODO: Remove this state
 			if( Serial.available() > 0){
 				char response;
 				response = Serial.read();
