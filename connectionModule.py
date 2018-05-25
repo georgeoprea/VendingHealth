@@ -53,7 +53,7 @@ def updateStock(product, productID):
 	productpath = '/Products/' + ProductID
 	result = firebase.patch(userpath, product)
 
-def hasMoney(balance, cost):
+def hasCredits(balance, cost):
 	if balance >= cost:
 		return True
 	else:
