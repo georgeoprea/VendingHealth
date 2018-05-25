@@ -1,9 +1,0 @@
-C:\Users\nadis\Desktop\facultate\an 3\ES\VendingHealthClientApp\VendingHealthClientApp\bin\Debug\VendingHealthClientApp.exe.config
-C:\Users\nadis\Desktop\facultate\an 3\ES\VendingHealthClientApp\VendingHealthClientApp\bin\Debug\VendingHealthClientApp.exe
-C:\Users\nadis\Desktop\facultate\an 3\ES\VendingHealthClientApp\VendingHealthClientApp\bin\Debug\VendingHealthClientApp.pdb
-C:\Users\nadis\Desktop\facultate\an 3\ES\VendingHealthClientApp\VendingHealthClientApp\obj\Debug\VendingHealthClientApp.csprojResolveAssemblyReference.cache
-C:\Users\nadis\Desktop\facultate\an 3\ES\VendingHealthClientApp\VendingHealthClientApp\obj\Debug\VendingHealthClientApp.Form1.resources
-C:\Users\nadis\Desktop\facultate\an 3\ES\VendingHealthClientApp\VendingHealthClientApp\obj\Debug\VendingHealthClientApp.Properties.Resources.resources
-C:\Users\nadis\Desktop\facultate\an 3\ES\VendingHealthClientApp\VendingHealthClientApp\obj\Debug\VendingHealthClientApp.csproj.GenerateResource.Cache
-C:\Users\nadis\Desktop\facultate\an 3\ES\VendingHealthClientApp\VendingHealthClientApp\obj\Debug\VendingHealthClientApp.exe
-C:\Users\nadis\Desktop\facultate\an 3\ES\VendingHealthClientApp\VendingHealthClientApp\obj\Debug\VendingHealthClientApp.pdb

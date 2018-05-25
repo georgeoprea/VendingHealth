@@ -1,0 +1,37 @@
+<h2 class="well text-center" style="background-color: black; color: white">Add a product or restock it</h2>
+<form #productForm="ngForm" (ngSubmit)="onSubmit()">
+   <span class=" offset-1 col-md-10">
+    <input class="form-control" type="text" pInputText placeholder="Position in vending machine" required [(ngModel)]="position" name="position" style="color: black">
+  </span>
+
+  <span class=" offset-1 col-md-10"> <br></span>
+
+  <span class=" offset-1 col-md-10">
+    <input class="form-control" type="text" pInputText placeholder="Product Name" required [(ngModel)]="product.name" name="prodName" style="color: black">
+  </span>
+
+  <span class=" offset-1 col-md-10"> <br></span>
+
+  <span class=" offset-1 col-md-10">
+    <input class="form-control" type="text" pInputText placeholder="Stock" required [(ngModel)]="product.stock" name="stock" style="color: black">
+  </span>
+
+  <span class=" offset-1 col-md-10"> <br></span>
+
+  <span class=" offset-1 col-md-10">
+    <input class="form-control" type="text" pInputText placeholder="Image" required [(ngModel)]="product.image" name="image" style="color: black">
+  </span>
+
+  <span class=" offset-1 col-md-10"> <br></span>
+
+  <span class=" offset-1 col-md-10">
+    <input class="form-control" type="text" pInputText placeholder="Kcal" required [(ngModel)]="product.kcal" name="kcal" style="color: black">
+  </span>
+
+  <span class=" offset-1 col-md-10"> <br></span>
+
+  <span class=" offset-1 col-md-10">
+    <button pButton type="submit" label="Submit" class="ui-button-success" [disabled]="!productForm.form.valid"></button>
+  </span>
+</form>
+

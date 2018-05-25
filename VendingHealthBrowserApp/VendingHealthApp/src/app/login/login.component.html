@@ -1,0 +1,28 @@
+<form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+<div class="jumbotron">
+  <h2><i class="fa fa-address-card"></i> Login</h2>
+  <br>
+  <br>
+  <div class="ui-fluid">
+    <div class="offset-1 col-md-4">
+      <div class="ui-inputgroup">
+        <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+        <input type="text" pInputText placeholder="Username" required [(ngModel)]="user.username" name="username" style="color: black">
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="ui-inputgroup">
+        <span class="ui-inputgroup-addon"><i class="fa fa-key"></i></span>
+        <input type="password" pInputText placeholder="Password" required [(ngModel)]="user.password" name="password" style="color: black">
+      </div>
+    </div>
+    <div class="col-md-2">
+      <button pButton type="submit" label="Login" class="ui-button-success" [disabled]="!loginForm.form.valid"></button>
+    </div>
+    <br>
+    <br>
+    <br>
+  </div>
+</div>
+</form>
