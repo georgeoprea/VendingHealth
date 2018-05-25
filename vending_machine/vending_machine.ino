@@ -21,12 +21,13 @@
 // #define VENDING 2
 
 #define WAIT_FOR_TAG 1
-#define TAG_FOUND 2
-#define CARD_CONFIRMATION 3
-#define PRODUCT_SELECTION 4
-#define STOCK_AND_BALANCE_CHECK 5
-#define VENDING 6
+#define CARD_CONFIRMATION 2
+#define PRODUCT_SELECTION 3
+#define STOCK_AND_BALANCE_CHECK 4
+#define VENDING 5
 
+
+int motorToSpin = 0;
 int state = FIND_TAG;
 byte found_tag; //variable used to check if the tag was found
 byte read_tag; //variable used to store anti collision value to read Tag info
@@ -54,10 +55,11 @@ void vend(const int echo, const int trig, const int motor){
     cm = duration * 0.034 / 2;
     Serial.print(cm);
     Serial.println(" cm");
-    //start_motor(motor);
+    start_motor(motor);
 
   }
   stop_motors();
+  motorToSpin = 0;
 }
 
 void stop_all_motors(){
@@ -65,7 +67,7 @@ void stop_all_motors(){
   analogWrite(R_MOTOR, 0);
 }
 
-void start_motor(int motor){		//parameter is pin number of motor
+void start_motor(int motor){    //parameter is pin number of motor
   analogWrite(motor, 130);
 }
 
@@ -82,11 +84,11 @@ void setup() {
     while(1);
   }
 
-	//  pinMode(GREENLED, OUTPUT);
-	//  pinMode(BLUELED, OUTPUT);
+  //  pinMode(GREENLED, OUTPUT);
+  //  pinMode(BLUELED, OUTPUT);
 
-	//  digitalWrite(GREENLED, LOW);
-	//  digitalWrite(BLUELED, LOW);
+  //  digitalWrite(GREENLED, LOW);
+  //  digitalWrite(BLUELED, LOW);
 
   pinMode(L_BUTTON, INPUT);
   pinMode(R_BUTTON, INPUT);
@@ -103,86 +105,95 @@ void setup() {
   Serial.println();
 }
 void loop() {
-	switch(state){
-		case WAIT_FOR_TAG :
-			String good_tag = "False";
-			found_tag = nfc.requestTag(MF1_REQIDL, tag_data);
 
-			if(found_tag == MI_OK){
-				delay(200);
-				read_tag = nfc.antiCollision(tag_data);
-				memcpy(tag_serial_num, tag_data, 4);
+  switch(state){
 
-				// Serial.print("Tag detected. Serial number: ");
-				for(int i = 0; i < 4; i++){
-					Serial.print(tag_serial_num[i], HEX);
-					Serial.print(" ");
-				}
-				Serial.println();
-				state = CARD_CONFIRMATION;
-			}
-			break;
+    case WAIT_FOR_TAG :
+      String good_tag = "False";
+      found_tag = nfc.requestTag(MF1_REQIDL, tag_data);
 
-		case TAG_FOUND:				//TODO: Remove this state
-			if( Serial.available() > 0){
-				char response;
-				response = Serial.read();
-				if(response == 'Y'){
-					state = VENDING;
-				}
-				else{
-			//        int time1 = millis();
-			//        int crnt_time = millis();
-			//        while(crnt_time - time1 < 2000){
-			//          crnt_time = millis();
-			//          digitalWrite(GREENLED, LOW);
-			//          digitalWrite(BLUELED, HIGH);
-			//        }
-			        state = FIND_TAG;
-			//        digitalWrite(BLUELED, LOW);
-			      }
-			break;
-		case CARD_CONFIRMATION:
-			char response;
-			response = Serial.read();
-			if(response == 'Y'){
-				state = PRODUCT_SELECTION;
-			} else {
-				printf("User not found\n");
-				state = WAIT_FOR_TAG;
-			}
-			break;
-		case PRODUCT_SELECTION:
-			l_button_state = digitalRead(L_BUTTON);
-			r_button_state = digitalRead(R_BUTTON);
+      if(found_tag == MI_OK){
+        delay(200);
+        read_tag = nfc.antiCollision(tag_data);
+        memcpy(tag_serial_num, tag_data, 4);
 
-			if(l_button_state == HIGH && r_button_state == LOW){
-				Serial.write("1");
-				state = STOCK_AND_BALANCE_CHECK;
-			} else if (l_button_state == LOW && r_button_state == HIGH){
-				Serial.write("2");
-				state = STOCK_AND_BALANCE_CHECK;
-			}
-			break;
-		case STOCK_AND_BALANCE_CHECK:
-			char response;
-			response = Serial.read();
-			if(response == 'Y'){
-				state = VENDING;
-			} else {
-				state = WAIT_FOR_TAG;
-				//spin motor
-			}
-			break;
-		case VENDING:
+        // Serial.print("Tag detected. Serial number: ");
+        for(int i = 0; i < 4; i++){
+          Serial.print(tag_serial_num[i], HEX);
+          Serial.print(" ");
+        }
+        Serial.println();
+        state = CARD_CONFIRMATION;
+      }
+      break;
 
-			break;
-		default:
-			state = WAIT_FOR_TAG;
-	}
+//    case TAG_FOUND:       //TODO: Remove this state
+//      if( Serial.available() > 0){
+//        char response;
+//        response = Serial.read();
+//        if(response == 'Y'){
+//          state = VENDING;
+//        }
+//       else{
+      //        int time1 = millis();
+      //        int crnt_time = millis();
+      //        while(crnt_time - time1 < 2000){
+      //          crnt_time = millis();
+      //          digitalWrite(GREENLED, LOW);
+      //          digitalWrite(BLUELED, HIGH);
+      //        }
+        //      state = FIND_TAG;
+      //        digitalWrite(BLUELED, LOW);
+            }
+      //break;
+
+    case CARD_CONFIRMATION:
+      char response;
+      response = Serial.read();
+      if(response == 'Y'){
+        state = PRODUCT_SELECTION;
+      } else {
+        printf("User not found\n");
+        state = WAIT_FOR_TAG;
+      }
+      break;
+
+    case PRODUCT_SELECTION:
+      l_button_state = digitalRead(L_BUTTON);
+      r_button_state = digitalRead(R_BUTTON);
+
+      if(l_button_state == HIGH && r_button_state == LOW){
+        Serial.println("1");
+        state = STOCK_AND_BALANCE_CHECK;
+        motorToSpin = L_MOTOR;
+      } else if (l_button_state == LOW && r_button_state == HIGH){
+        Serial.println("2");
+        state = STOCK_AND_BALANCE_CHECK;
+        motorToSpin = R_MOTOR;
+      }
+      break;
+
+    case STOCK_AND_BALANCE_CHECK:
+      char response;
+      response = Serial.read();
+      if(response == 'Y'){
+        state = VENDING;
+      } else {
+        state = WAIT_FOR_TAG;
+      }
+      break;
+
+    case VENDING:
+      vend(L_ECHO_PIN, L_TRIG_PIN, motorToSpin);
+      sate = WAIT_FOR_TAG;
+      break;
+
+    default:
+      state = WAIT_FOR_TAG;
+  }
 }
 // void loop() {
-//   if (state == FIND_TAG){			//looking for tag
+//   if (state == FIND_TAG){      //looking for tag
 //     String good_tag = "False";
 //     found_tag = nfc.requestTag(MF1_REQIDL, tag_data);
 //
@@ -210,7 +221,7 @@ void loop() {
 //     }
 //   }
 //
-//   else if(state ==  TAG_FOUND){			// a tag was read
+//   else if(state ==  TAG_FOUND){      // a tag was read
 //     if( Serial.available() > 0){
 //        char response;
 //        response = Serial.read();

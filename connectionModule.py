@@ -53,7 +53,7 @@ def updateStock(product, productID):
 	productpath = '/Products/' + ProductID
 	result = firebase.patch(userpath, product)
 
-def hasCredits(balance, cost):
+def hasMoney(balance, cost):
 	if balance >= cost:
 		return True
 	else:
@@ -81,7 +81,7 @@ def _readLineSerial():
 
 while True:
 	line = _readLineSerial()		#expect card number
-	id = getProductID(line)
+	id = line
 	user = getUserByID(id)
 	if user == None:
 		ser.write("N")		#put Arduino in FINDING_USER state
@@ -89,16 +89,18 @@ while True:
 	else:
 		ser.write("Y")		#put Arduino in FOUND_USER state
 
-# product extraction
+	# product extraction
 	line = _readLineSerial()		#expect button number
-	productID = getProductID(line)
+	productID = formatForFirebase(line)
 	product = getProductByID(productID)
 	productCost = getProductCost(product)	#number of kcal of product
 	balance = getBalance(user)
 	if hasMoney(balance, productCost) && hasStock(product):
 		ser.write("Y")
 		updateStock(product, productID)
+		updateUserBalance(user, userID, product)
 	else:
+
 		ser.write("N")
 
 
