@@ -95,7 +95,7 @@ while True:
 	product = getProductByID(productID)
 	productCost = getProductCost(product)	#number of kcal of product
 	balance = getBalance(user)
-	if hasMoney(balance, productCost) && hasStock(product):
+	if hasMoney(balance, productCost) and hasStock(product):
 		ser.write("Y")
 		updateStock(product, productID)
 		updateUserBalance(user, userID, product)

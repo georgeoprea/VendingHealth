@@ -28,7 +28,7 @@
 
 
 int motorToSpin = 0;
-int state = FIND_TAG;
+int state = WAIT_FOR_TAG;
 byte found_tag; //variable used to check if the tag was found
 byte read_tag; //variable used to store anti collision value to read Tag info
 byte tag_data[MAX_LEN]; //variable used to store the full tag data
@@ -58,7 +58,7 @@ void vend(const int echo, const int trig, const int motor){
     start_motor(motor);
 
   }
-  stop_motors();
+  stop_all_motors();
   motorToSpin = 0;
 }
 
@@ -109,7 +109,7 @@ void loop() {
   switch(state){
 
     case WAIT_FOR_TAG :
-      String good_tag = "False";
+//      String good_tag = "False";
       found_tag = nfc.requestTag(MF1_REQIDL, tag_data);
 
       if(found_tag == MI_OK){
@@ -144,7 +144,7 @@ void loop() {
       //        }
         //      state = FIND_TAG;
       //        digitalWrite(BLUELED, LOW);
-            }
+//            }
       //break;
 
     case CARD_CONFIRMATION:
@@ -174,7 +174,7 @@ void loop() {
       break;
 
     case STOCK_AND_BALANCE_CHECK:
-      char response;
+//      char response;
       response = Serial.read();
       if(response == 'Y'){
         state = VENDING;
@@ -185,12 +185,12 @@ void loop() {
 
     case VENDING:
       vend(L_ECHO_PIN, L_TRIG_PIN, motorToSpin);
-      sate = WAIT_FOR_TAG;
+      state = WAIT_FOR_TAG;
       break;
 
     default:
       state = WAIT_FOR_TAG;
-  }
+}
 }
 // void loop() {
 //   if (state == FIND_TAG){      //looking for tag
