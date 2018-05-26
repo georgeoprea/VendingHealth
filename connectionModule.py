@@ -12,7 +12,6 @@ serial_port = '/dev/ttyUSB0'
 baud_rate = 9600
 ser = serial.Serial(serial_port, baud_rate)
 
-
 def formatForFirebase(id):
     return id + ' '
 
@@ -48,7 +47,6 @@ def getProductByID(id):
 
 
 def getProductCost(product):
-    print
     return product.get("kcal")
 
 
@@ -139,31 +137,3 @@ while True:
 
         ser.write("N")
 
-#
-# print("balance:" + balance)
-#
-# if (balance >= cost):
-# 	print("Vending...")
-#
-# 	ser.write("y")
-# 	while True:
-# 		response = ser.readline()
-# 		print(line)
-# 		if "done" in response:
-# 			print("Done Vending.")
-# 			break
-# 	else:
-# 		ser.write("n")
-# 	print(line)
-#
-
-# if id in line:
-# 	ser.write("y")
-# 	while True:
-# 		response = ser.readline()
-# 		print(line)
-# 		if "done" in response:
-# 			break
-# 	else:
-# 		ser.write("n")
-# 	print(line)
