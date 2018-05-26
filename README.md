@@ -18,7 +18,7 @@ https://www.nuget.org/downloads
 
 #### _npm_: Node package manager must be installed on your computer
 
-* The link to download NuGet:  
+* The link to download npm:  
 https://www.npmjs.com/get-npm
 
 * The command to be run in order to install the package dependencies    
