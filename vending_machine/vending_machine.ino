@@ -16,10 +16,6 @@
 #define R_MOTOR 7
 #define L_MOTOR 6
 
-// #define FIND_TAG 0
-// #define TAG_FOUND 1
-// #define VENDING 2
-
 #define WAIT_FOR_TAG 1
 #define CARD_CONFIRMATION 2
 #define PRODUCT_SELECTION 3
@@ -38,11 +34,11 @@ void turnOffBlue(){
 
 int motorToSpin = 0;
 int state = WAIT_FOR_TAG;
-byte found_tag; //variable used to check if the tag was found
-byte read_tag; //variable used to store anti collision value to read Tag info
-byte tag_data[MAX_LEN]; //variable used to store the full tag data
-byte tag_serial_num[5]; //variable used to store the tag serial number
-byte good_tag_serial_num[5] = {0x47, 0xC1, 0x8D, 0xAB}; //serial number we are looking for
+byte found_tag;             //variable used to check if the tag was found
+byte read_tag;              //variable used to store anti collision value to read Tag info
+byte tag_data[MAX_LEN];     //variable used to store the full tag data
+byte tag_serial_num[5];     //variable used to store the tag serial number
+//byte good_tag_serial_num[5] = {0x47, 0xC1, 0x8D, 0xAB};
 int l_button_state = 0;
 int r_button_state = 0;
 MFRC522 nfc(SDAPIN, RESETPIN);
@@ -119,7 +115,7 @@ void loop() {
   switch(state){
 
     case WAIT_FOR_TAG :
-//      String good_tag = "False";
+      //String good_tag = "False";
       found_tag = nfc.requestTag(MF1_REQIDL, tag_data);
 
       if(found_tag == MI_OK){
@@ -137,37 +133,18 @@ void loop() {
       }
       break;
 
-//    case TAG_FOUND:       //TODO: Remove this state
-//      if( Serial.available() > 0){
-//        char response;
-//        response = Serial.read();
-//        if(response == 'Y'){
-//          state = VENDING;
-//        }
-//       else{
-      //        int time1 = millis();
-      //        int crnt_time = millis();
-      //        while(crnt_time - time1 < 2000){
-      //          crnt_time = millis();
-      //          digitalWrite(GREENLED, LOW);
-      //          digitalWrite(BLUELED, HIGH);
-      //        }
-        //      state = FIND_TAG;
-      //        digitalWrite(BLUELED, LOW);
-//            }
-      //break;
-
     case CARD_CONFIRMATION:
       char response;
       if( Serial.available() > 0){
         response = Serial.read();
-       pinMode(L_BUTTON, INPUT);
-      if(response == 'Y'){
-        state = PRODUCT_SELECTION;
-      } else {
-        printf("User not found\n");
-        state = WAIT_FOR_TAG;
-      }
+        pinMode(L_BUTTON, INPUT);
+        if(response == 'Y'){
+          state = PRODUCT_SELECTION;
+        }
+        else {
+          printf("User not found\n");
+          state = WAIT_FOR_TAG;
+        }
       }
       break;
 
@@ -179,7 +156,8 @@ void loop() {
         Serial.println("1");
         state = STOCK_AND_BALANCE_CHECK;
         motorToSpin = L_MOTOR;
-      } else if (l_button_state == LOW && r_button_state == HIGH){
+      }
+      else if (l_button_state == LOW && r_button_state == HIGH){
         Serial.println("2");
         state = STOCK_AND_BALANCE_CHECK;
         motorToSpin = R_MOTOR;
@@ -187,28 +165,33 @@ void loop() {
       break;
 
     case STOCK_AND_BALANCE_CHECK:
-//      char response;
+      //char response;
       if( Serial.available() > 0){
-      response = Serial.read();
-      if(response == 'Y'){
-        turnOnBlue();
-        state = VENDING;
-      } else {
-        turnOffBlue();
+        response = Serial.read();
+        if(response == 'Y'){
+          turnOnBlue();
+          state = VENDING;
+        } else {
+          turnOffBlue();
+          state = WAIT_FOR_TAG;
+        }
+      }
+      break;
+
+      case VENDING:
+        if(motorToSpin == L_MOTOR)
+          vend(L_ECHO_PIN, L_TRIG_PIN, motorToSpin);
+        else
+          vend(R_ECHO_PIN, R_TRIG_PIN, motorToSpin);
         state = WAIT_FOR_TAG;
-      }
-      }
-      break;
+        break;
 
-    case VENDING:
-      vend(L_ECHO_PIN, L_TRIG_PIN, motorToSpin);
-      state = WAIT_FOR_TAG;
-      break;
+      default:
+        state = WAIT_FOR_TAG;
+    }
+}
 
-    default:
-      state = WAIT_FOR_TAG;
-}
-}
+
 // void loop() {
 //   if (state == FIND_TAG){      //looking for tag
 //     String good_tag = "False";

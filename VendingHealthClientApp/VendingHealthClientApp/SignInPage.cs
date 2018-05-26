@@ -27,7 +27,6 @@ namespace VendingHealthClientApp
 
         private void signInButton_Click(object sender, EventArgs e)
         {
-            //MessageBox.Show(username + " " + password);
             User user = userInfo.GetUser(username, password);
             if (user == null)
             {

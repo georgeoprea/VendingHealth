@@ -94,16 +94,17 @@ def getProductID(line):
 
 
 def _readLineSerial():
-    # make blocking
     line = ser.readline()
-    line2 = line.decode('utf-8')
-    line2 = line2[:-2]
-    print [line2, line2]
+    line = line.decode('utf-8')
+    line = line[:-2]
+    print [line, line]
     sys.stdout.write("- Serial:\"" + line2 + "\"\n")
     time.sleep(0.5)
-    while ser.inWaiting():  # Or: while ser.inWaiting():
+
+	#read whatever is left in the serial and discard it
+    while ser.inWaiting():
         ser.readline()
-    return line2
+    return line
 
 
 def formatLineForID(line):
