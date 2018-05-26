@@ -1,135 +1,168 @@
 import serial
 from firebase import firebase
+import sys
+import time
 
 # Firebase setup
 FIREBASE_ROOT = 'https://vendinghealth-alpha.firebaseio.com'
 firebase = firebase.FirebaseApplication(FIREBASE_ROOT, None)
 
-#Arduino Communication
+# Arduino Communication
 serial_port = '/dev/ttyUSB0'
 baud_rate = 9600
 ser = serial.Serial(serial_port, baud_rate)
 
+
 def formatForFirebase(id):
-	return `id` + ' '
+    return id + ' '
+
 
 # Firebase Communication
 
 def updateUserBalance(user, userID, product):
-	user["balance"] = user["balance"] - product["kcal"]
-	userpath = '/Users/' + userID
-	result = firebase.patch(userpath, user)
+    user["balance"] = user["balance"] - product["kcal"]
+    userpath = '/Users/' + userID
+    result = firebase.patch(userpath, user)
 
-def getUserByID( id ):
-	result = firebase.get('/Users', None)
- 	user = result.get(id)
-	if(user == None):
-		return None
-	else:
-		return user
 
-def getProductByID( id ):
-	result = firebase.get('/Products', None)
- 	product = result.get(id)
-	if(product == None):
-		return None
-	else:
-		return product
+def getUserByID(id):
+    result = firebase.get('/Users', None)
 
-def getProductCost( product ):
-	return product.get("kcal")
+    user = result.get(id)
+    print "user::",
+    print user
+    return user
 
-def getBalance( user ):
-	return user.get("balance")
+
+def getProductByID(id):
+
+    result = firebase.get('/Products', None)
+    product = result.get(id)
+    print "product"
+    print product
+
+    if (product == None):
+        return None
+    else:
+        return product
+
+
+def getProductCost(product):
+    print
+    return product.get("kcal")
+
+
+def getBalance(user):
+    return user.get("balance")
+
 
 def hasStock(product):
-	if product["stock"] > 0:
-		return True
-	else:
-		return False
+    if product["stock"] > 0:
+        return True
+    else:
+        return False
+
 
 def updateStock(product, productID):
-	product["stock"] = product["stock"] - 1
-	productpath = '/Products/' + ProductID
-	result = firebase.patch(userpath, product)
+    product["stock"] = product["stock"] - 1
+    productpath = '/Products/' + productID
+    result = firebase.patch(productpath, product)
+
 
 def hasMoney(balance, cost):
-	if balance >= cost:
-		return True
-	else:
-		return False
+    if balance >= cost:
+        return True
+    else:
+        return False
+
 
 def getProductStock(product):
-	return product.get("stock")
+    return product.get("stock")
+
 
 # Arduino data extraction
 
-def extractCardID( line ):
-	id = line
-	# return "47 C1 8D AB"  # TODO: for test
-	return id
+def extractCardID(line):
+    id = line
+    # return "47 C1 8D AB"  # TODO: for test
+    return id
+
 
 def getProductID(line):
-	prodID = line
-	return prodID
+    prodID = line
+    return prodID
+
 
 def _readLineSerial():
-	#make blocking
-	line = ser.readline()
-	line = line.decode("utf-8")
-	return line
+    # make blocking
+    line = ser.readline()
+    line2 = line.decode('utf-8')
+    line2 = line2[:-2]
+    print [line2, line2]
+    sys.stdout.write("- Serial:\"" + line2 + "\"\n")
+    time.sleep(0.5)
+    while ser.inWaiting():  # Or: while ser.inWaiting():
+        ser.readline()
+    return line2
+
+
+def formatLineForID(line):
+    id = line[:-1]
+    return id
+
 
 while True:
-	line = _readLineSerial()		#expect card number
-	id = line
-	user = getUserByID(id)
-	if user == None:
-		ser.write("N")		#put Arduino in FINDING_USER state
-		continue
-	else:
-		ser.write("Y")		#put Arduino in FOUND_USER state
+    line = _readLineSerial()  # expect card number
+    id = formatLineForID(line)
+    user = getUserByID(id)
+    if user == None:
+        print "user if: N"
+        ser.write("N")  # put Arduino in FINDING_USER state
+        continue
+    else:
+        print "user if: Y"
+        ser.write("Y")  # put Arduino in FOUND_USER state
 
-	# product extraction
-	line = _readLineSerial()		#expect button number
-	productID = formatForFirebase(line)
-	product = getProductByID(productID)
-	productCost = getProductCost(product)	#number of kcal of product
-	balance = getBalance(user)
-	if hasMoney(balance, productCost) and hasStock(product):
-		ser.write("Y")
-		updateStock(product, productID)
-		updateUserBalance(user, userID, product)
-	else:
+    # product extraction
+    line = _readLineSerial()  # expect button number
+    productID = formatForFirebase(line)
+    sys.stdout.write("\""+productID + "\"")
+    product = getProductByID(productID)
+    productCost = getProductCost(product)  # number of kcal of product
+    balance = getBalance(user)
+    if hasMoney(balance, productCost) and hasStock(product):
+        ser.write("Y")
+        updateStock(product, productID)
+        updateUserBalance(user, id, product)
+    else:
 
-		ser.write("N")
+        ser.write("N")
 
+#
+# print("balance:" + balance)
+#
+# if (balance >= cost):
+# 	print("Vending...")
+#
+# 	ser.write("y")
+# 	while True:
+# 		response = ser.readline()
+# 		print(line)
+# 		if "done" in response:
+# 			print("Done Vending.")
+# 			break
+# 	else:
+# 		ser.write("n")
+# 	print(line)
+#
 
-	#
-	# print("balance:" + balance)
-	#
-	# if (balance >= cost):
-	# 	print("Vending...")
-	#
-	# 	ser.write("y")
-	# 	while True:
-	# 		response = ser.readline()
-	# 		print(line)
-	# 		if "done" in response:
-	# 			print("Done Vending.")
-	# 			break
-	# 	else:
-	# 		ser.write("n")
-	# 	print(line)
-	#
-
-
-	# if id in line:
-	# 	ser.write("y")
-	# 	while True:
-	# 		response = ser.readline()
-	# 		print(line)
-	# 		if "done" in response:
-	# 			break
-	# 	else:
-	# 		ser.write("n")
-	# 	print(line)
+# if id in line:
+# 	ser.write("y")
+# 	while True:
+# 		response = ser.readline()
+# 		print(line)
+# 		if "done" in response:
+# 			break
+# 	else:
+# 		ser.write("n")
+# 	print(line)

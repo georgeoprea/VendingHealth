@@ -26,6 +26,15 @@
 #define STOCK_AND_BALANCE_CHECK 4
 #define VENDING 5
 
+#define BLUELED A5
+
+void turnOnBlue(){
+  analogWrite(BLUELED, 255);
+}
+
+void turnOffBlue(){
+  analogWrite(BLUELED, 0);
+}
 
 int motorToSpin = 0;
 int state = WAIT_FOR_TAG;
@@ -89,6 +98,7 @@ void setup() {
 
   //  digitalWrite(GREENLED, LOW);
   //  digitalWrite(BLUELED, LOW);
+  pinMode(BLUELED, OUTPUT);
 
   pinMode(L_BUTTON, INPUT);
   pinMode(R_BUTTON, INPUT);
@@ -99,10 +109,10 @@ void setup() {
   pinMode(R_TRIG_PIN, OUTPUT);
   pinMode(R_ECHO_PIN, INPUT);
 
-  Serial.print("Found chip RC522 ");
-  Serial.print("Firmware version 0x ");
-  Serial.println(version, HEX);
-  Serial.println();
+//  Serial.print("Found chip RC522 ");
+//  Serial.print("Firmware version 0x ");
+//  Serial.println(version, HEX);
+//  Serial.println();
 }
 void loop() {
 
@@ -149,12 +159,15 @@ void loop() {
 
     case CARD_CONFIRMATION:
       char response;
-      response = Serial.read();
+      if( Serial.available() > 0){
+        response = Serial.read();
+       pinMode(L_BUTTON, INPUT);
       if(response == 'Y'){
         state = PRODUCT_SELECTION;
       } else {
         printf("User not found\n");
         state = WAIT_FOR_TAG;
+      }
       }
       break;
 
@@ -175,11 +188,15 @@ void loop() {
 
     case STOCK_AND_BALANCE_CHECK:
 //      char response;
+      if( Serial.available() > 0){
       response = Serial.read();
       if(response == 'Y'){
+        turnOnBlue();
         state = VENDING;
       } else {
+        turnOffBlue();
         state = WAIT_FOR_TAG;
+      }
       }
       break;
 
