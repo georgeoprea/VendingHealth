@@ -26,7 +26,6 @@ def updateUserBalance(user, userID, product):
 
 def getUserByID(id):
     result = firebase.get('/Users', None)
-
     user = result.get(id)
     print "user::",
     print user
@@ -34,12 +33,10 @@ def getUserByID(id):
 
 
 def getProductByID(id):
-
     result = firebase.get('/Products', None)
     product = result.get(id)
     print "product"
     print product
-
     if (product == None):
         return None
     else:
@@ -77,9 +74,7 @@ def hasMoney(balance, cost):
 def getProductStock(product):
     return product.get("stock")
 
-
 # Arduino data extraction
-
 def extractCardID(line):
     id = line
     # return "47 C1 8D AB"  # TODO: for test
@@ -96,7 +91,7 @@ def _readLineSerial():
     line = line.decode('utf-8')
     line = line[:-2]
     print [line, line]
-    sys.stdout.write("- Serial:\"" + line2 + "\"\n")
+    sys.stdout.write("- Serial:\"" + line + "\"\n")
     time.sleep(0.5)
 
 	#read whatever is left in the serial and discard it
@@ -136,4 +131,3 @@ while True:
     else:
 
         ser.write("N")
-
