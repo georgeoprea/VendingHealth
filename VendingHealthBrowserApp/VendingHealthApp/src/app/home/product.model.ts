@@ -1,7 +1,7 @@
 export interface Product{
   image? : string;
-  kcal? : string;
+  kcal? : number;
   name? : string;
-  stock : string;
+  stock? : number;
 
 }

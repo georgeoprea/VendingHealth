@@ -18,7 +18,8 @@ import { AnalyticsComponent } from './login/analytics/analytics.component';
 const ROUTES: Routes = [
   {path: '', component: HomeComponent},
   {path: 'signup', component: SignUpComponent},
-  {path: 'products', component: ProductsComponent}
+  {path: 'products', component: ProductsComponent},
+  {path: 'analytics', component: AnalyticsComponent}
 ];
 
 @NgModule({

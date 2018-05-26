@@ -13,14 +13,11 @@ export class ProductsComponent implements OnInit {
   private position : string;
 
   constructor(private productsService : ProductRegisterService) {
-    this.product ={
-      image: '',
-      kcal: '',
-      name: '',
-      stock:''
-    };
-
     this.position = "";
+    this.product={
+      name:'',
+      image:''
+    }
   }
 
   ngOnInit() {
