@@ -12,7 +12,6 @@ serial_port = '/dev/ttyUSB0'
 baud_rate = 9600
 ser = serial.Serial(serial_port, baud_rate)
 
-
 def formatForFirebase(id):
     return id + ' '
 
@@ -27,7 +26,6 @@ def updateUserBalance(user, userID, product):
 
 def getUserByID(id):
     result = firebase.get('/Users', None)
-
     user = result.get(id)
     print "user::",
     print user
@@ -35,12 +33,10 @@ def getUserByID(id):
 
 
 def getProductByID(id):
-
     result = firebase.get('/Products', None)
     product = result.get(id)
     print "product"
     print product
-
     if (product == None):
         return None
     else:
@@ -48,7 +44,6 @@ def getProductByID(id):
 
 
 def getProductCost(product):
-    print
     return product.get("kcal")
 
 
@@ -79,9 +74,7 @@ def hasMoney(balance, cost):
 def getProductStock(product):
     return product.get("stock")
 
-
 # Arduino data extraction
-
 def extractCardID(line):
     id = line
     # return "47 C1 8D AB"  # TODO: for test
@@ -98,7 +91,7 @@ def _readLineSerial():
     line = line.decode('utf-8')
     line = line[:-2]
     print [line, line]
-    sys.stdout.write("- Serial:\"" + line2 + "\"\n")
+    sys.stdout.write("- Serial:\"" + line + "\"\n")
     time.sleep(0.5)
 
 	#read whatever is left in the serial and discard it
@@ -138,32 +131,3 @@ while True:
     else:
 
         ser.write("N")
-
-#
-# print("balance:" + balance)
-#
-# if (balance >= cost):
-# 	print("Vending...")
-#
-# 	ser.write("y")
-# 	while True:
-# 		response = ser.readline()
-# 		print(line)
-# 		if "done" in response:
-# 			print("Done Vending.")
-# 			break
-# 	else:
-# 		ser.write("n")
-# 	print(line)
-#
-
-# if id in line:
-# 	ser.write("y")
-# 	while True:
-# 		response = ser.readline()
-# 		print(line)
-# 		if "done" in response:
-# 			break
-# 	else:
-# 		ser.write("n")
-# 	print(line)
