@@ -22,14 +22,20 @@
 #define STOCK_AND_BALANCE_CHECK 4
 #define VENDING 5
 
-#define BLUELED A5
+#define GREENPIN A4
+#define REDPIN A5
+#define BLUEPIN A3
 
-void turnOnBlue(){
-  analogWrite(BLUELED, 255);
+void setLedColor(int red, int green, int blue){
+  analogWrite(REDPIN, 255 - red);
+  analogWrite(BLUEPIN, 255 - blue);
+  analogWrite(GREENPIN, 255 - green);
 }
 
-void turnOffBlue(){
-  analogWrite(BLUELED, 0);
+void turnOffLed(){
+  analogWrite(BLUEPIN, 0);
+  analogWrite(REDPIN, 0);
+  analogWrite(GREENPIN, 0);
 }
 
 int motorToSpin = 0;
@@ -40,6 +46,7 @@ byte tag_data[MAX_LEN];     //variable used to store the full tag data
 byte tag_serial_num[5];     //variable used to store the tag serial number
 int l_button_state = 0;
 int r_button_state = 0;
+
 MFRC522 nfc(SDAPIN, RESETPIN);
 
 void vend(const int echo, const int trig, const int motor){
@@ -48,17 +55,16 @@ void vend(const int echo, const int trig, const int motor){
 
   while(cm > 4){
 
-  digitalWrite(trig, LOW);
-  delayMicroseconds(2);
-  digitalWrite(trig, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(trig, LOW);
+    digitalWrite(trig, LOW);
+    delayMicroseconds(2);
+    digitalWrite(trig, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(trig, LOW);
     duration = pulseIn(echo, HIGH);
 
     cm = duration * 0.034 / 2;
 //    Serial.print(cm);
 //    Serial.print(" cm ");
-//    Serial.print("Motor "); Serial.print(motor);Serial.println(" is spinning");
     start_motor(motor);
 
   }
@@ -88,12 +94,9 @@ void setup() {
     while(1);
   }
 
-  //  pinMode(GREENLED, OUTPUT);
-  //  pinMode(BLUELED, OUTPUT);
-
-  //  digitalWrite(GREENLED, LOW);
-  //  digitalWrite(BLUELED, LOW);
-  pinMode(BLUELED, OUTPUT);
+  pinMode(BLUEPIN, OUTPUT);
+  pinMode(REDPIN, OUTPUT);
+  pinMode(GREENPIN, OUTPUT);
 
   pinMode(L_BUTTON, INPUT);
   pinMode(R_BUTTON, INPUT);
@@ -114,6 +117,7 @@ void loop() {
   switch(state){
 
     case WAIT_FOR_TAG :
+      setLedColor(0, 0, 255);
       found_tag = nfc.requestTag(MF1_REQIDL, tag_data);
 
       if(found_tag == MI_OK){
@@ -137,10 +141,13 @@ void loop() {
         response = Serial.read();
         pinMode(L_BUTTON, INPUT);
         if(response == 'Y'){
+          setLedColor(0, 255, 0); //user found
+          delay(1000);
           state = PRODUCT_SELECTION;
         }
         else {
-          printf("User not found\n");
+          setLedColor(255, 0, 0); //user not found
+          delay(1000);
           state = WAIT_FOR_TAG;
         }
       }
@@ -166,10 +173,9 @@ void loop() {
       if( Serial.available() > 0){
         response = Serial.read();
         if(response == 'Y'){
-          turnOnBlue();
           state = VENDING;
         } else {
-          turnOffBlue();
+          turnOffLed();
           state = WAIT_FOR_TAG;
         }
       }
