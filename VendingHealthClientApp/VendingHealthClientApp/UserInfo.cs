@@ -9,7 +9,7 @@ namespace VendingHealthClientApp
 
         public User GetUser(string username, string password)
         {
-            HttpWebRequest firebaseRequest = (HttpWebRequest)WebRequest.Create("https://vendinghealth-alpha.firebaseio.com/.json");
+            HttpWebRequest firebaseRequest = (HttpWebRequest)WebRequest.Create("https://vendinghealth-alpha.firebaseio.com/Users.json");
 
             WebResponse response = firebaseRequest.GetResponse();
 
@@ -18,9 +18,9 @@ namespace VendingHealthClientApp
 
             string jsonResponse = objReader.ReadToEnd();
             JObject jObject = JObject.Parse(jsonResponse);
-            JToken usersJToken = jObject.SelectToken("Users");
 
-            foreach (JToken userToken in usersJToken.Children())
+            
+            foreach (JToken userToken in jObject.Children())
                 foreach (JToken userDetailsToken in userToken.Children())
                 {
                     string foundUsername = userDetailsToken.SelectToken("username").ToString();

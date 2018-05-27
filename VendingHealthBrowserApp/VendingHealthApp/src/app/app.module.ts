@@ -13,11 +13,13 @@ import {RouterModule, Routes} from "@angular/router";
 import {HttpClientModule} from "@angular/common/http";
 import { HomeComponent } from './home/home.component';
 import {ProductRegisterService} from "./product-register.service";
+import { AnalyticsComponent } from './login/analytics/analytics.component';
 
 const ROUTES: Routes = [
   {path: '', component: HomeComponent},
   {path: 'signup', component: SignUpComponent},
-  {path: 'products', component: ProductsComponent}
+  {path: 'products', component: ProductsComponent},
+  {path: 'analytics', component: AnalyticsComponent}
 ];
 
 @NgModule({
@@ -26,7 +28,8 @@ const ROUTES: Routes = [
     LoginComponent,
     SignUpComponent,
     ProductsComponent,
-    HomeComponent
+    HomeComponent,
+    AnalyticsComponent
   ],
   imports: [
     RouterModule.forRoot(ROUTES),

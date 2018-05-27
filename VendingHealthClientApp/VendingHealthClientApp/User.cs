@@ -10,5 +10,9 @@ namespace VendingHealthClientApp
         public string Password { get; set; }
 
         public string Username { get; set; }
+
+        public string VendTime { get; set; }
+
+        public string VendsToday { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace VendingHealthClientApp
     {
         public Product[] GetProducts()
         {
-            HttpWebRequest firebaseRequest = (HttpWebRequest)WebRequest.Create("https://vendinghealth-alpha.firebaseio.com/.json");
+            HttpWebRequest firebaseRequest = (HttpWebRequest)WebRequest.Create("https://vendinghealth-alpha.firebaseio.com/Products.json");
 
             WebResponse response = firebaseRequest.GetResponse();
 
@@ -18,13 +18,15 @@ namespace VendingHealthClientApp
 
             string jsonResponse = objReader.ReadToEnd();
             JObject jObject = JObject.Parse(jsonResponse);
-            JToken product1 = jObject.SelectToken("Products['1 ']");
-            JToken product2 = jObject.SelectToken("Products['2 ']");
 
-            Product[] products = new Product[2];
+            int i = 0;
+            Product[] products = new Product[jObject.Count];
 
-            products[0] = (Product)product1.ToObject<Product>();
-            products[1] = (Product)product2.ToObject<Product>();
+            foreach (JToken productToken in jObject.Children()) {
+                JToken productDescriptionToken = productToken.First;
+                products[i] = (Product)productDescriptionToken.ToObject<Product>();
+                i++;
+            }   
 
             return products;
 
