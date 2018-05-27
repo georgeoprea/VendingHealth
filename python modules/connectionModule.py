@@ -129,5 +129,4 @@ while True:
         updateStock(product, productID)
         updateUserBalance(user, id, product)
     else:
-
         ser.write("N")

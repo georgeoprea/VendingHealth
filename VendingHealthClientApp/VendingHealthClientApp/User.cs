@@ -11,8 +11,5 @@ namespace VendingHealthClientApp
 
         public string Username { get; set; }
 
-        public string VendTime { get; set; }
-
-        public string VendsToday { get; set; }
     }
 }
