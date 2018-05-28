@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {User} from "../user.model";
+import {User} from "../sign-up/user.model";
 import {LoginService} from "../login.service";
 import {Router} from "@angular/router";
 

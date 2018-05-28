@@ -8,12 +8,14 @@ import {FormsModule} from "@angular/forms";
 import {LoginService} from "./login.service";
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { ProductsComponent } from './login/products/products.component';
-import {SignUpService} from "./sign-up.service";
+import {UserService} from "./user.service";
 import {RouterModule, Routes} from "@angular/router";
 import {HttpClientModule} from "@angular/common/http";
 import { HomeComponent } from './home/home.component';
 import {ProductRegisterService} from "./product-register.service";
 import { AnalyticsComponent } from './login/analytics/analytics.component';
+import {ChartService} from "./login/analytics/chart.service";
+import { ChartDisplayComponent } from './login/analytics/chart-display/chart-display.component';
 
 const ROUTES: Routes = [
   {path: '', component: HomeComponent},
@@ -29,7 +31,8 @@ const ROUTES: Routes = [
     SignUpComponent,
     ProductsComponent,
     HomeComponent,
-    AnalyticsComponent
+    AnalyticsComponent,
+    ChartDisplayComponent
   ],
   imports: [
     RouterModule.forRoot(ROUTES),
@@ -38,7 +41,12 @@ const ROUTES: Routes = [
     ButtonModule,
     FormsModule
   ],
-  providers: [LoginService, SignUpService, ProductRegisterService, HttpClientModule],
+  providers: [
+    LoginService,
+    UserService,
+    ProductRegisterService,
+    ChartService,
+    HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
