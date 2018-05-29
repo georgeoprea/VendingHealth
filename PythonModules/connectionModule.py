@@ -3,6 +3,8 @@ from firebase import firebase
 import sys
 import time
 
+import datetime
+
 # Firebase setup
 FIREBASE_ROOT = 'https://vendinghealth-alpha.firebaseio.com'
 firebase = firebase.FirebaseApplication(FIREBASE_ROOT, None)
@@ -22,6 +24,23 @@ def updateUserBalance(user, userID, product):
     user["balance"] = user["balance"] - product["kcal"]
     userpath = '/Users/' + userID
     result = firebase.patch(userpath, user)
+
+
+def putTransaction(cardID):
+	now = datetime.datetime.now()
+	crtDate = ""+`now.day`+ "." + `now.month`+"."+`now.year`
+	transactionPath = '/Transactions/' + cardID
+	result = firebase.get(transactionPath, None)
+	hourstring = "" + `now.hour`
+	if result["day"] == crtDate:
+		try:
+			result[hourstring] += 1
+			result = firebase.patch(transactionPath, result)
+		except KeyError, e:
+			result.update({hourstring : 1})
+			result = firebase.patch(transactionPath, result)
+	else:
+		firebase.patch("/Transactions/",{cardID:{"day":crtDate,hourstring:1}})
 
 
 def getUserByID(id):
@@ -128,5 +147,7 @@ while True:
         ser.write("Y")
         updateStock(product, productID)
         updateUserBalance(user, id, product)
+        putTransaction(id)
     else:
+
         ser.write("N")
