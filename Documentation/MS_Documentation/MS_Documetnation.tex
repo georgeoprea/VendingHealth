@@ -128,7 +128,7 @@ desktop application.
 \item The system should allow users to restock or change the snacks in the machine 
 via a web application.
 \item The system should be open for client application extensions (mobile application)
-\item The system should be open for extension HW extension (adding an NFC writing module
+\item The system should be open for HW extension (adding an NFC writing module
 so that more than 2 NFC cards could be used with the application)
 \end{enumerate}
 
@@ -142,7 +142,7 @@ The overview of the system is depicted in Figure \ref{fig:system}.\\
 \label{fig:system}
 \end{figure}
 
-The base modules (Push button subsystem, RFID Reader subsystem, Ultrasonic Sensors subsystem, Motors subsystem) are the actuators and the sensors of the system. The RFID Reader is able to read a user's card. The push buttons identify the products and receive input from the user in order to select one of the products. The motors start to spin based on the information received from the RPi interaction module. The ultrasonic sensors detect a product has fallen and sends a response to the motors to stop.\\\\\\
+The base modules (Push button subsystem, RFID Reader subsystem, Ultrasonic Sensors subsystem, Motors subsystem, RGB Led Subsystem) are the actuators and the sensors of the system. The RFID Reader is able to read a user's card. The push buttons identify the products and receive input from the user in order to select one of the products. The motors start to spin based on the information received from the RPi interaction module. The ultrasonic sensors detect a product has fallen and sends a response to the motors to stop. The LED allows visual confirmation of the vend cycle status: red - card not valid; green - card valid; blue - waiting for card read\\\\\\
 
 The HW Interaction Module is a Raspberry Pi that runs a python module. It interacts with the Arduino through a serial interface connection. It also communicates with the Cloud Storage through HTTP requests.\\ 
 
@@ -158,7 +158,7 @@ The hardware view of the system and the wiring of the components are depicted in
 
 \begin{figure}[h]
 \centering
-\includegraphics[scale=0.3]{CircuitDesign.png}
+\includegraphics[scale=0.1]{CircuitDesign.png}
 \caption{Circuit schematic}
 \label{fig:circuit-design}
 \end{figure}
@@ -223,6 +223,7 @@ The functions that operate on the Firebase database:
 \item updateUserBalance(user, userID, product)
 \item getUserByID(id)
 \item getProductByID(id)
+\item putTransaction(cardID)
 \item updateStock(product, productID)\\\\
 \end{itemize}
 
@@ -261,8 +262,8 @@ Serial library: This library acts as a wrapper over the serial interface of the 
 Firebase is a PaaS (Platform as a Service) which means it offers developers to a quick list of functionalities supported by a traditional backend.
 Realtime Database simplifies storing and synchronising data between different devices in realtime using a noSQL database.\\
 
-The database is divided into two parts: Products and Users. Each of these parts is represented as a node in the database. The Products node identifies the available products from the vending machine, 
-while the Users node maintains the card IDs from the vending machine and the users associated with them.\\
+The database is divided into three parts: Products, Users, Transactions. Each of these parts is represented as a node in the database. The Products node identifies the available products from the vending machine. 
+The Users node maintains the card IDs from the vending machine and the users associated with them. The Transactions node collects for each card ID a daily report of the veding machine usage (vends per hour).\\
 
 The cloud storage functionallity is also used to hold the desktop client appllication. It can be downloaded from storage via the web application.
 \subsection{Desktop Client Application}
@@ -294,16 +295,21 @@ The following Angular components are part of the project:
 \item sign-up: allows users to register to a certain card 
 \item home: provides app download, sign-up and login posibilities to the user 
 \item products: allows modification and addition of new products in the vending machine to be represented in the database
+\item analytics: allows the admin to view all the users' daily usage of the vending machine
+\item chart-display: creates a chart for each user and binds data to it
 \item app: entry point of application, provides the routing outlet\\
 \end{itemize}
 
-The application provides three services: sign-up.service, product-register.service, login.service. They all contain an HttpClient
+The application provides three services: user.service, product-register.service, login.service, chart.service. They all contain an HttpClient
 which allows for easy handling of http requests. An example is shown below of a simple get request to firebase.
 \begin{python}
 getAdmin() : Observable<User>{
     return this.http.get<User>(this.firebase);
   }
 \end{python}
+
+The web application uses the following packages : PrimeNG, Plotly.js and Bootstrap.
+
 \section{Results and further work}
 
 The current version of the project supports the following functionalities:
@@ -314,7 +320,7 @@ The current version of the project supports the following functionalities:
 \item allowing users to create an account for the application and register a certain card to it
 \item allowing users to download the application from the browser application
 \item connection from RPi to Firebase and correct information retrieval and processing
-\item vending of items independent of Firebase information\\
+\item vending of items based on the Arduino -> Raspberry Pi -> Firebase interaction\\
 \end{itemize}
 
 The following list of extensions and improvements was identified to be supported in the future:
@@ -334,6 +340,9 @@ The following list of extensions and improvements was identified to be supported
 \item Fritzing [last seen: May 2018], \url{http://fritzing.org/}
 \item Firebase Database [last seen: May 2018], \url{https://firebase.google.com/docs/database/}
 \item RFID library [last seen: May 2018], \url{https://github.com/miguelbalboa/rfid}
+\item Plotly.js library [last seen: May 2018], \url{https://plot.ly/javascript/}
+\item PrimeNG [last seen: May 2018], \url{https://www.primefaces.org/primeng/#/}
+\item Bootstrap  [last seen: May 2018], \url{https://getbootstrap.com/docs/4.0/getting-started/download/}
 \end{enumerate}
 
 
